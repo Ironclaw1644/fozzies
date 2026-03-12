@@ -170,7 +170,7 @@ export default function Header() {
               className="flex items-center justify-between text-xs text-softgray fz-navitem"
               style={{ animationDelay: `${NAV.length * 60 + 120}ms` }}
             >
-              <span className="tracking-[0.18em]">AN ELEVATED DINING EXPERIENCE</span>
+              <span className="tracking-[0.18em]">MOMENTS TURNED TO MEMORIES</span>
               <a
                 href="/#reserve"
                 onClick={closeMenu}

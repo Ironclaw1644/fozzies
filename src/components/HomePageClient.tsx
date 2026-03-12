@@ -187,7 +187,7 @@ export default function HomePage() {
             <div className="mt-7 flex justify-center">
               <Image
                 src="/brand/title_tagline_hq_white.png"
-                alt="Fozzie's — An Elevated Dining Experience"
+                alt="Fozzie's — Moments Turned To Memories"
                 width={820}
                 height={240}
                 priority

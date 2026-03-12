@@ -33,7 +33,7 @@ export default function HeroLogo() {
         ].join(" ")}
       >
         <span className="h-px w-12 bg-gold/50" />
-        <span className="uppercase">An Elevated Dining Experience</span>
+        <span className="uppercase">Moments Turned To Memories</span>
         <span className="h-px w-12 bg-gold/50" />
       </div>
     </div>
