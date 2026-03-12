@@ -19,7 +19,17 @@ export default function Footer() {
         >
           Privacy Policy
         </Link>
-        <p className="text-softgray/80">© Fozzie&apos;s Dining 2026</p>
+        <div className="flex flex-col items-center gap-1">
+          <p className="text-softgray/80">© Fozzie&apos;s Dining 2026</p>
+          <a
+            href="https://walkperro.com"
+            target="_blank"
+            rel="noreferrer"
+            className="text-charcoal/70 no-underline transition hover:underline hover:underline-offset-4"
+          >
+            Powered by WalkPerro
+          </a>
+        </div>
       </div>
     </footer>
   );

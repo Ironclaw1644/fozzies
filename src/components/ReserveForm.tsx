@@ -180,7 +180,15 @@ export default function ReserveForm() {
               ) : status === "error" ? (
                 <span className="text-red-700">{error}</span>
               ) : (
-                <span>Prefer the phone? Call us for immediate booking.</span>
+                <>
+                  <span>Prefer the phone? Call us for immediate booking.</span>
+                  <a
+                    href="tel:+19312617163"
+                    className="mt-2 inline-flex min-h-10 items-center py-1 font-medium text-[#C8A24A] no-underline transition hover:underline hover:underline-offset-4"
+                  >
+                    (931) 261-7163
+                  </a>
+                </>
               )}
             </div>
           </div>
