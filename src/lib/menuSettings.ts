@@ -218,9 +218,3 @@ export function parseMenuPayload(value: unknown): MenuPayload | null {
     footerBlock: normalizeFooterBlock(row.footerBlock, footerDefaults),
   };
 }
-
-export function resolveMenuPdfPath(value: unknown) {
-  if (!value || typeof value !== "object") return "/fozzies-menu.pdf";
-  const setting = value as Record<string, unknown>;
-  return typeof setting.path === "string" && setting.path.trim() ? setting.path : "/fozzies-menu.pdf";
-}

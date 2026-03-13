@@ -26,9 +26,8 @@ export default function MenuPdfUploadForm() {
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Upload failed");
       const updatedLabel = json.updatedAt ? new Date(json.updatedAt).toLocaleString() : new Date().toLocaleString();
-      const fileLabel = json.fileName ? ` (${json.fileName})` : "";
       setState("uploaded");
-      setStatus(`Uploaded.${fileLabel} ${updatedLabel}`);
+      setStatus(`Uploaded live menu at ${json.storagePath || "menu/menu-<timestamp>.pdf"}. ${updatedLabel}`);
       form.reset();
       router.refresh();
     } catch (err) {

@@ -1,32 +1,15 @@
 import MenuPdfUploadForm from "@/components/admin/MenuPdfUploadForm";
 import { getSettingValue } from "@/lib/settings";
-import { resolveMenuPdfPath } from "@/lib/menuSettings";
+import { buildMenuPdfPublicUrl, getMenuPdfDisplayName, normalizeMenuPdfSetting, type MenuPdfSetting } from "@/lib/menuPdf";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type MenuPdfSetting = {
-  path?: string;
-  updatedAt?: string;
-};
-
-function getFilename(pathOrUrl: string) {
-  if (!pathOrUrl) return "menu.pdf";
-  try {
-    const url = new URL(pathOrUrl);
-    const name = url.pathname.split("/").pop();
-    return name || "menu.pdf";
-  } catch {
-    const withoutQuery = pathOrUrl.split("?")[0]?.split("#")[0] || "";
-    const name = withoutQuery.split("/").pop();
-    return name || "menu.pdf";
-  }
-}
-
 export default async function AdminMenuPdfPage() {
   const value = await getSettingValue<MenuPdfSetting>("menu_pdf");
-  const currentPath = resolveMenuPdfPath(value);
-  const filename = getFilename(currentPath);
+  const currentPdf = normalizeMenuPdfSetting(value);
+  const currentPath = buildMenuPdfPublicUrl(value);
+  const filename = getMenuPdfDisplayName(value);
 
   return (
     <main>
@@ -40,7 +23,8 @@ export default async function AdminMenuPdfPage() {
         <h3 className="font-serif text-2xl text-charcoal">Current PDF</h3>
         <div className="mt-2 text-sm text-softgray">
           <div>File: {filename}</div>
-          <div>Updated: {value?.updatedAt ? new Date(value.updatedAt).toLocaleString() : "Unknown"}</div>
+          <div>Storage path: {currentPdf.storagePath}</div>
+          <div>Updated: {currentPdf.updatedAt ? new Date(currentPdf.updatedAt).toLocaleString() : "Unknown"}</div>
         </div>
         <div className="mt-3">
           <a

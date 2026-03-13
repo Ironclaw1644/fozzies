@@ -1,6 +1,7 @@
 import MenuRender from "@/components/menu/MenuRender";
 import { getSettingValue } from "@/lib/settings";
-import { getDefaultMenuPayload, parseMenuPayload, resolveMenuPdfPath } from "@/lib/menuSettings";
+import { buildMenuPdfPublicUrl, type MenuPdfSetting } from "@/lib/menuPdf";
+import { getDefaultMenuPayload, parseMenuPayload } from "@/lib/menuSettings";
 import type { Metadata } from "next";
 
 export const runtime = "nodejs";
@@ -35,11 +36,11 @@ export default async function MenuPage() {
   let menuMeta = defaults.meta;
   let menuSections = defaults.sections;
   let menuFooterBlock = defaults.footerBlock;
-  let menuPdfPath = "/fozzies-menu.pdf";
+  let menuPdfPath = buildMenuPdfPublicUrl(null);
 
   const [storedMenu, storedPdf] = await Promise.all([
     getSettingValue<unknown>("menu_html"),
-    getSettingValue<unknown>("menu_pdf"),
+    getSettingValue<MenuPdfSetting>("menu_pdf"),
   ]);
 
   if (storedMenu == null) {
@@ -55,7 +56,7 @@ export default async function MenuPage() {
       console.error("Invalid site_settings.menu_html payload. Falling back to static menuData.");
     }
   }
-  menuPdfPath = resolveMenuPdfPath(storedPdf);
+  menuPdfPath = buildMenuPdfPublicUrl(storedPdf);
 
   return <MenuRender menuMeta={menuMeta} menuSections={menuSections} footerBlock={menuFooterBlock} pdfUrl={menuPdfPath} />;
 }

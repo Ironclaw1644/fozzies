@@ -1,14 +1,11 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
-import { upsertSettingValue } from "@/lib/settings";
+import { getSettingValue, upsertSettingValue } from "@/lib/settings";
+import { buildMenuPdfPublicUrl, MENU_PDF_BUCKET, MENU_PDF_STORAGE_PREFIX, normalizeMenuPdfSetting, type MenuPdfSetting } from "@/lib/menuPdf";
 import { logServerEvent } from "@/lib/trackServer";
 
 export const runtime = "nodejs";
-
-type MenuPdfSetting = {
-  path: string;
-  updatedAt: string;
-};
 
 export async function POST(req: Request) {
   try {
@@ -22,11 +19,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "Only PDF files are allowed" }, { status: 400 });
     }
 
+    const previousValue = await getSettingValue<MenuPdfSetting>("menu_pdf");
+    const previousSetting = normalizeMenuPdfSetting(previousValue);
     const now = new Date().toISOString();
-    const storagePath = "menus/fozzies-menu.pdf";
+    const storagePath = `${MENU_PDF_STORAGE_PREFIX}/menu-${Date.now()}.pdf`;
     const supabase = supabaseAdmin();
-    const { error: uploadError } = await supabase.storage.from("public-assets").upload(storagePath, file, {
-      upsert: true,
+    const { error: uploadError } = await supabase.storage.from(MENU_PDF_BUCKET).upload(storagePath, file, {
+      upsert: false,
       contentType: "application/pdf",
     });
 
@@ -35,7 +34,7 @@ export async function POST(req: Request) {
         return NextResponse.json(
           {
             ok: false,
-            error: "Supabase Storage bucket `public-assets` is missing. Create it in Supabase Storage and make it public before uploading.",
+            error: `Supabase Storage bucket \`${MENU_PDF_BUCKET}\` is missing. Create it in Supabase Storage and make it public before uploading.`,
           },
           { status: 500 }
         );
@@ -44,12 +43,26 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: `Upload failed: ${uploadError.message}` }, { status: 500 });
     }
 
-    const { data } = supabase.storage.from("public-assets").getPublicUrl(storagePath);
-    const setting: MenuPdfSetting = { path: data.publicUrl || storagePath, updatedAt: now };
+    const setting: MenuPdfSetting = {
+      originalFileName: file.name,
+      original_file_name: file.name,
+      storagePath,
+      storage_path: storagePath,
+      updatedAt: now,
+      updated_at: now,
+    };
     const { error: settingError } = await upsertSettingValue("menu_pdf", setting);
     if (settingError) {
       return NextResponse.json({ ok: false, error: `Failed to save setting: ${settingError.message}` }, { status: 500 });
     }
+
+    if (previousSetting.storagePath && previousSetting.storagePath !== storagePath) {
+      await supabase.storage.from(MENU_PDF_BUCKET).remove([previousSetting.storagePath]);
+    }
+
+    revalidatePath("/menu");
+    revalidatePath("/admin/menu");
+    revalidatePath("/admin/menu-pdf");
 
     await logServerEvent({
       event_type: "admin_pdf_upload",
@@ -60,7 +73,8 @@ export async function POST(req: Request) {
     });
     return NextResponse.json({
       ok: true,
-      path: setting.path,
+      storagePath: setting.storagePath,
+      publicUrl: buildMenuPdfPublicUrl(setting),
       updatedAt: setting.updatedAt,
       fileName: file.name,
       provider: "supabase-storage",

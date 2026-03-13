@@ -1,7 +1,8 @@
 import { revalidatePath } from "next/cache";
 import MenuEditor from "@/components/admin/MenuEditor";
+import { buildMenuPdfPublicUrl, type MenuPdfSetting } from "@/lib/menuPdf";
 import { getSettingValue, upsertSettingValue } from "@/lib/settings";
-import { getDefaultMenuPayload, parseMenuPayload, resolveMenuPdfPath, type MenuPayload } from "@/lib/menuSettings";
+import { getDefaultMenuPayload, parseMenuPayload, type MenuPayload } from "@/lib/menuSettings";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,7 +23,7 @@ export default async function AdminMenuPage() {
 
   const defaults = getDefaultMenuPayload();
   let initialValue: MenuPayload = defaults;
-  const [storedMenu, storedPdf] = await Promise.all([getSettingValue<unknown>("menu_html"), getSettingValue<unknown>("menu_pdf")]);
+  const [storedMenu, storedPdf] = await Promise.all([getSettingValue<unknown>("menu_html"), getSettingValue<MenuPdfSetting>("menu_pdf")]);
 
   if (storedMenu) {
     const parsed = parseMenuPayload(storedMenu);
@@ -39,7 +40,7 @@ export default async function AdminMenuPage() {
     }
   }
 
-  const currentPdfPath = resolveMenuPdfPath(storedPdf);
+  const currentPdfPath = buildMenuPdfPublicUrl(storedPdf);
 
   return (
     <main>
