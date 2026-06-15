@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { escHtml, renderEmailFooter, renderLuxuryEmailHtml } from "@/lib/emailMarketing";
+import { supabaseSecretKey } from "@/lib/supabaseAdmin";
 
 export const runtime = "nodejs";
 
@@ -52,7 +53,9 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
     const kind = String(body.kind || "confirmed") as "confirmed" | "declined" | "reschedule";
     const message = String(body.message || "").trim();
 
-    const supabase = createClient(env("SUPABASE_URL"), env("SUPABASE_SERVICE_ROLE_KEY"), {
+    const supabaseKey = supabaseSecretKey();
+    if (!supabaseKey) throw new Error("Missing env var: SUPABASE_SECRET_KEY");
+    const supabase = createClient(env("SUPABASE_URL"), supabaseKey, {
       auth: { persistSession: false },
     });
 

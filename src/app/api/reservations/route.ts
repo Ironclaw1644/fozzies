@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { supabaseSecretKey } from "@/lib/supabaseAdmin";
 
 export const runtime = "nodejs";
 
@@ -70,18 +71,18 @@ export async function POST(req: Request) {
     }
 
     const SUPABASE_URL = envOrNull("SUPABASE_URL");
-    const SUPABASE_SERVICE_ROLE_KEY = envOrNull("SUPABASE_SERVICE_ROLE_KEY");
+    const SUPABASE_KEY = supabaseSecretKey();
 
-    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
       console.error("[reservations] Missing Supabase configuration", {
         requestId,
         hasSupabaseUrl: !!SUPABASE_URL,
-        hasServiceRoleKey: !!SUPABASE_SERVICE_ROLE_KEY,
+        hasSupabaseKey: !!SUPABASE_KEY,
       });
       return bad("Reservations are temporarily unavailable. Please call the restaurant.", 500);
     }
 
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
       auth: { persistSession: false },
     });
 
