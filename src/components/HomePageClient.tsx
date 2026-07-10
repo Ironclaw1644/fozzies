@@ -176,7 +176,8 @@ export default function HomePage() {
         </div>
 
         {/* Foreground content */}
-        <div className="relative z-10 px-6 py-14 sm:px-10 sm:py-16 text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.92)]">
+        <div className="relative z-10 px-6 py-14 sm:px-10 sm:py-20 text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.92)]">
+          <h1 className="sr-only">Fozzie&apos;s Dining — Chef-Driven Fine Dining in Cookeville, TN</h1>
           <div className="text-center">
             <div className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-white/90">
               <span className="h-px w-10 bg-gold/70" />
@@ -186,12 +187,12 @@ export default function HomePage() {
 
             <div className="mt-7 flex justify-center">
               <Image
-                src="/brand/title_tagline_hq_white.png"
+                src="/brand/title_tagline_white_trim.png"
                 alt="Fozzie's — Moments Turned To Memories"
-                width={820}
-                height={240}
+                width={751}
+                height={248}
                 priority
-                className="h-auto w-[94%] max-w-[640px] sm:max-w-[760px] "
+                className="h-auto w-[88%] max-w-[440px] sm:max-w-[560px]"
               />
             </div>
 
@@ -220,12 +221,12 @@ export default function HomePage() {
         <section className="mx-auto mt-16 w-full max-w-6xl border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
           <div className="mx-auto w-full">
             <div className="text-center">
-              <h2 className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-softgray">
+              <p className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-softgray">
                 <span className="h-px w-10 bg-gold/70" />
                 ANNOUNCEMENTS
                 <span className="h-px w-10 bg-gold/70" />
-              </h2>
-              <h3 className="mt-4 font-serif text-3xl text-charcoal">Latest Updates</h3>
+              </p>
+              <h2 className="mt-4 font-serif text-3xl text-charcoal">Latest Updates</h2>
               <div className="mx-auto mt-5 h-px w-48 bg-gold/60" />
             </div>
 
@@ -275,10 +276,10 @@ export default function HomePage() {
           <div className="overflow-hidden rounded-none md:border border-charcoal/10 bg-cream shadow-sm transition hover:shadow-md">
             <div className="relative aspect-[3/4] md:h-[520px] w-full">
               <Image
-                src="/gallery/chef_hero.jpg"
-                alt="Chef greeting guests at Fozzie’s"
+                src="/gallery/chef_portrait.jpg"
+                alt="Chef Jason Head, chef and owner of Fozzie's Dining in Cookeville, TN"
                 fill
-                className="object-cover md:object-contain md:object-top object-center transition duration-500"
+                className="object-cover object-top transition duration-500"
                 sizes="(min-width: 768px) 50vw, 100vw"
                 priority={false}
               />
@@ -287,25 +288,36 @@ export default function HomePage() {
         </div>
 
         <div className="md:col-span-6 text-center md:text-left">
-          <h2 className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-softgray">
+          <p className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-softgray">
             <span className="h-px w-10 bg-gold/70" />
             THE CHEF
             <span className="h-px w-10 bg-gold/70" />
-          </h2>
+          </p>
 
-          <h1 className="mt-4 font-serif text-3xl text-charcoal">Chef-Driven Fine Dining in Cookeville, TN</h1>
+          <h2 className="mt-4 font-serif text-3xl text-charcoal">Chef-Driven Fine Dining in Cookeville, TN</h2>
 
           <p className="mt-4 text-[15px] leading-7 text-softgray">
             From scratch-made classics to elevated seasonal plates — every detail is built around your table: warm hospitality, confident flavors, and an unhurried, white-tablecloth experience.
           </p>
 
+          <p className="mt-4 text-[15px] leading-7 text-softgray">
+            Curious about the man behind the kitchen?{" "}
+            <a href="/about" className="underline decoration-gold/70 underline-offset-4 transition hover:text-charcoal">
+              Meet Chef Jason Head
+            </a>{" "}
+            or see why guests call this the{" "}
+            <a href="/best-fine-dining-cookeville" className="underline decoration-gold/70 underline-offset-4 transition hover:text-charcoal">
+              best fine dining in Cookeville
+            </a>
+            .
+          </p>
         </div>
       </section>
 
       {/* Signature Dishes */}
       <section className="mt-16">
         <div className="text-center">
-          <h2 className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-softgray">
+          <h2 className="inline-flex items-center gap-3 whitespace-nowrap font-sans text-[11px] font-normal tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-softgray">
             <span className="h-px w-10 bg-gold/70" />
             SIGNATURE DISHES
             <span className="h-px w-10 bg-gold/70" />
@@ -316,9 +328,9 @@ export default function HomePage() {
         <div className="mt-10 md:hidden">
           <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3">
               {[
-              { src: "/gallery/main_dish.png", alt: "Chef-plated signature entree at Fozzie's Dining" },
-              { src: "/gallery/salad_dish.png", alt: "Seasonal salad from Fozzie's Dining menu" },
-              { src: "/gallery/desert_dish.png", alt: "House dessert served at Fozzie's Dining" },
+              { src: "/gallery/shrimp_and_grits.jpg", alt: "Shrimp and grits — seared gulf shrimp over creamy gorda grits at Fozzie's Dining" },
+              { src: "/gallery/salmon_dish.jpg", alt: "Blackened salmon with hot honey citrus glaze, sweet potato hash, and brussels sprouts" },
+              { src: "/gallery/creme_brulee.jpg", alt: "Crème brûlée with caramelized sugar crust and fresh raspberries" },
             ].map((img) => (
               <div
                 key={img.src}
@@ -340,9 +352,9 @@ export default function HomePage() {
 
         <div className="mt-10 hidden md:grid md:grid-cols-3 md:gap-6">
           {[
-            { src: "/gallery/main_dish.png", alt: "Chef-plated signature entree at Fozzie's Dining" },
-            { src: "/gallery/salad_dish.png", alt: "Seasonal salad from Fozzie's Dining menu" },
-            { src: "/gallery/desert_dish.png", alt: "House dessert served at Fozzie's Dining" },
+            { src: "/gallery/shrimp_and_grits.jpg", alt: "Shrimp and grits — seared gulf shrimp over creamy gorda grits at Fozzie's Dining" },
+            { src: "/gallery/salmon_dish.jpg", alt: "Blackened salmon with hot honey citrus glaze, sweet potato hash, and brussels sprouts" },
+            { src: "/gallery/creme_brulee.jpg", alt: "Crème brûlée with caramelized sugar crust and fresh raspberries" },
           ].map((img) => (
             <div
               key={img.src}
@@ -365,7 +377,7 @@ export default function HomePage() {
       {/* Dining Room Atmosphere */}
       <section className="mt-16">
         <div className="text-center">
-          <h2 className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-softgray">
+          <h2 className="inline-flex items-center gap-3 whitespace-nowrap font-sans text-[11px] font-normal tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-softgray">
             <span className="h-px w-10 bg-gold/70" />
             THE ATMOSPHERE
             <span className="h-px w-10 bg-gold/70" />
@@ -376,8 +388,8 @@ export default function HomePage() {
           <div className="md:col-span-6 overflow-hidden border border-charcoal/10 bg-cream shadow-sm">
             <div className="relative aspect-[16/10] w-full">
               <Image
-                src="/gallery/dining_room_1.png"
-                alt="Dining room ambience"
+                src="/gallery/dining_detail.jpg"
+                alt="Candlelit white-tablecloth table setting at Fozzie's Dining"
                 fill
                 className="object-cover"
                 sizes="(min-width: 768px) 60vw, 100vw"
@@ -388,8 +400,8 @@ export default function HomePage() {
           <div className="md:col-span-6 overflow-hidden border border-charcoal/10 bg-cream shadow-sm">
             <div className="relative aspect-[16/10] w-full">
               <Image
-                src="/gallery/couple_bar.png"
-                alt="Table setting and warm lighting"
+                src="/gallery/bar_lounge.jpg"
+                alt="Craft cocktails at the bar at Fozzie's Dining"
                 fill
                 className="object-cover object-[50%_50%]"
                 sizes="(min-width: 768px) 40vw, 100vw"

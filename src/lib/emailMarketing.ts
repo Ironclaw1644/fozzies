@@ -49,13 +49,13 @@ export function bodyToHtml(body: string) {
 }
 
 export function defaultSiteUrl() {
-  return envOrNull("NEXT_PUBLIC_SITE_URL") || "https://fozziesdining.com";
+  return envOrNull("NEXT_PUBLIC_SITE_URL") || "https://www.fozziesdining.com";
 }
 
 export function renderEmailFooter(input?: { includeComplianceLine?: boolean; unsubscribeUrl?: string }) {
   const includeComplianceLine = Boolean(input?.includeComplianceLine);
   const unsubscribeUrl = input?.unsubscribeUrl;
-  const siteUrl = "https://fozziesdining.com";
+  const siteUrl = defaultSiteUrl();
 
   return `
 <div style="margin-top:18px;border-top:1px solid rgba(200,162,74,0.3);padding-top:14px;color:#CFCFCF;font-size:12px;line-height:1.65;">

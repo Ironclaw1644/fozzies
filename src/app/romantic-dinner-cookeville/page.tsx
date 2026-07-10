@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,6 +7,24 @@ export const metadata: Metadata = {
     "Plan a romantic dinner in Cookeville at Fozzie's Dining, where chef-driven menus, warm ambiance, and attentive service create unforgettable evenings.",
   alternates: {
     canonical: "/romantic-dinner-cookeville",
+  },
+  openGraph: {
+    title: "Romantic Dinner in Cookeville, TN | Fozzie's Dining",
+    description:
+      "Plan a romantic dinner in Cookeville at Fozzie's Dining, where chef-driven menus, warm ambiance, and attentive service create unforgettable evenings.",
+    url: "/romantic-dinner-cookeville",
+    images: [
+      {
+        url: "/gallery/dining_detail.jpg",
+        alt: "Candlelit table for two at Fozzie's Dining in Cookeville, TN",
+      },
+    ],
+  },
+  twitter: {
+    title: "Romantic Dinner in Cookeville, TN | Fozzie's Dining",
+    description:
+      "Plan a romantic dinner in Cookeville at Fozzie's Dining, where chef-driven menus, warm ambiance, and attentive service create unforgettable evenings.",
+    images: ["/gallery/dining_detail.jpg"],
   },
 };
 
@@ -28,7 +47,19 @@ export default function RomanticDinnerCookevillePage() {
         </div>
       </section>
 
-      <section className="mx-auto mt-14 max-w-4xl border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
+      <section className="mx-auto mt-12 max-w-4xl overflow-hidden border border-charcoal/10 bg-cream shadow-sm">
+        <div className="relative aspect-[21/9] w-full">
+          <Image
+            src="/gallery/dining_detail.jpg"
+            alt="Candlelit white-tablecloth table set for two at Fozzie's Dining"
+            fill
+            className="object-cover"
+            sizes="(min-width: 896px) 896px, 100vw"
+          />
+        </div>
+      </section>
+
+      <section className="mx-auto mt-8 max-w-4xl border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
         <h2 className="font-serif text-2xl text-charcoal sm:text-3xl">Designed for Date Night</h2>
         <p className="mt-4 text-softgray leading-7">
           Soft light, elegant plating, and a polished pace create an intimate backdrop without feeling formal or
@@ -51,7 +82,22 @@ export default function RomanticDinnerCookevillePage() {
           <a href="/contact" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">contact page</a>.
         </p>
         <p className="mt-4 text-softgray leading-7">
-          Secure your table directly at <a href="/#reserve" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">#reserve</a>.
+          Ready for the evening?{" "}
+          <a href="/#reserve" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            Reserve a table at Fozzie&apos;s
+          </a>
+          .
+        </p>
+        <p className="mt-4 text-softgray leading-7">
+          Making it a bigger occasion? Explore{" "}
+          <a href="/private-dining-cookeville" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            private dining in Cookeville
+          </a>{" "}
+          or see why Fozzie&apos;s is called the{" "}
+          <a href="/best-fine-dining-cookeville" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            best fine dining in Cookeville
+          </a>
+          .
         </p>
       </section>
     </main>

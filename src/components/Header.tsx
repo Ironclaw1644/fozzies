@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const NAV = [
@@ -16,6 +17,7 @@ const NAV = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
+  const pathname = usePathname();
 
   const closeMenu = () => {
     setClosing(true);
@@ -43,10 +45,10 @@ export default function Header() {
 
   const Wordmark = ({ className = "" }: { className?: string }) => (
     <Image
-      src="/brand/title_solo_hq.png"
+      src="/brand/title_solo_trim.png"
       alt="Fozzie's"
-      width={720}
-      height={200}
+      width={617}
+      height={187}
       priority
       className={className}
     />
@@ -72,17 +74,36 @@ export default function Header() {
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <Link href="/" className="inline-flex items-center no-underline">
                 <Wordmark
-                  className="h-14 w-auto sm:h-16 scale-[2.2] sm:scale-[2.6] translate-y-3 origin-center"
+                  className="h-8 w-auto sm:h-9"
                 />
               </Link>
             </div>
 
-            {/* Right: Hamburger (no circle) */}
+            {/* Right: inline nav on desktop, hamburger below lg */}
             <div className="flex items-center">
+              <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
+                {NAV.filter((item) => item.href !== "/").map((item) => {
+                  const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={[
+                        "text-sm no-underline transition",
+                        active
+                          ? "text-charcoal underline decoration-gold/80 underline-offset-8"
+                          : "text-charcoal/70 hover:text-charcoal",
+                      ].join(" ")}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </nav>
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="inline-flex items-center justify-center px-3 py-3 text-charcoal/90 transition hover:text-charcoal"
+                className="inline-flex items-center justify-center px-3 py-3 text-charcoal/90 transition hover:text-charcoal lg:hidden"
                 aria-label="Open menu"
               >
                 <div className="flex flex-col gap-2">
@@ -123,7 +144,7 @@ export default function Header() {
 
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <Link href="/" onClick={closeMenu} className="inline-flex no-underline">
-                  <Wordmark className="h-14 w-auto sm:h-16 scale-[2.2] sm:scale-[2.6] translate-y-3 origin-center" />
+                  <Wordmark className="h-8 w-auto sm:h-9" />
                 </Link>
               </div>
 

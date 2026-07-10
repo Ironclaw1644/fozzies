@@ -163,6 +163,7 @@ export default function MenuRender({ menuMeta, menuSections, footerBlock, pdfUrl
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
       <header className="text-center">
+        <h1 className="sr-only">Fozzie&apos;s Dining Menu — Cookeville, TN</h1>
         <div className="mx-auto max-w-3xl">
           <div className="mx-auto relative mt-6 h-[100px] w-full max-w-[160px] overflow-visible">
             <Image

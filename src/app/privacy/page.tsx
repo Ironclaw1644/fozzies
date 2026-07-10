@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy",
   description: "Read the Fozzie's Dining privacy policy for reservations, newsletter, applications, and analytics.",
+  alternates: {
+    canonical: "/privacy",
+  },
   openGraph: {
     title: "Privacy | Fozzie's Dining",
     description: "Read the Fozzie's Dining privacy policy for reservations, newsletter, applications, and analytics.",
@@ -56,7 +59,7 @@ export default function PrivacyPage() {
           <h2 className="font-serif text-2xl text-charcoal">Data Retention & Contact</h2>
           <p className="mt-2 text-sm leading-7 text-softgray">
             We retain data only as needed for operations and legal obligations. For privacy questions, contact us at{" "}
-            <a className="underline decoration-gold/70 underline-offset-4" href="mailto:reservations@fozziesdining.com">
+            <a className="underline decoration-gold/70 underline-offset-4" href="mailto:fozziesdining@gmail.com">
               fozziesdining@gmail.com
             </a>
             .

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,6 +7,24 @@ export const metadata: Metadata = {
     "Discover chef-driven fine dining in Cookeville at Fozzie's Dining with seasonal menus, polished service, and an atmosphere made for meaningful evenings.",
   alternates: {
     canonical: "/best-fine-dining-cookeville",
+  },
+  openGraph: {
+    title: "Best Fine Dining in Cookeville, TN | Fozzie's Dining",
+    description:
+      "Discover chef-driven fine dining in Cookeville at Fozzie's Dining with seasonal menus, polished service, and an atmosphere made for meaningful evenings.",
+    url: "/best-fine-dining-cookeville",
+    images: [
+      {
+        url: "/gallery/salmon_dish.jpg",
+        alt: "Blackened salmon entree at Fozzie's Dining in Cookeville, TN",
+      },
+    ],
+  },
+  twitter: {
+    title: "Best Fine Dining in Cookeville, TN | Fozzie's Dining",
+    description:
+      "Discover chef-driven fine dining in Cookeville at Fozzie's Dining with seasonal menus, polished service, and an atmosphere made for meaningful evenings.",
+    images: ["/gallery/salmon_dish.jpg"],
   },
 };
 
@@ -28,7 +47,19 @@ export default function BestFineDiningCookevillePage() {
         </div>
       </section>
 
-      <section className="mx-auto mt-14 max-w-4xl border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
+      <section className="mx-auto mt-12 max-w-4xl overflow-hidden border border-charcoal/10 bg-cream shadow-sm">
+        <div className="relative aspect-[21/9] w-full">
+          <Image
+            src="/gallery/salmon_dish.jpg"
+            alt="Blackened salmon with hot honey citrus glaze at Fozzie's Dining"
+            fill
+            className="object-cover"
+            sizes="(min-width: 896px) 896px, 100vw"
+          />
+        </div>
+      </section>
+
+      <section className="mx-auto mt-8 max-w-4xl border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
         <h2 className="font-serif text-2xl text-charcoal sm:text-3xl">Chef-Led Cuisine With Seasonal Intention</h2>
         <p className="mt-4 text-softgray leading-7">
           Every menu is built around fresh ingredients and thoughtful balance. From first course to dessert, each dish
@@ -54,7 +85,22 @@ export default function BestFineDiningCookevillePage() {
           <a href="/contact" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">contact page</a>.
         </p>
         <p className="mt-4 text-softgray leading-7">
-          Ready now? Reserve directly at <a href="/#reserve" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">#reserve</a>.
+          Ready now?{" "}
+          <a href="/#reserve" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            Reserve a table at Fozzie&apos;s
+          </a>
+          .
+        </p>
+        <p className="mt-4 text-softgray leading-7">
+          Celebrating something special? Plan a{" "}
+          <a href="/romantic-dinner-cookeville" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            romantic dinner in Cookeville
+          </a>{" "}
+          or host a group with{" "}
+          <a href="/private-dining-cookeville" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            private dining
+          </a>
+          .
         </p>
       </section>
     </main>

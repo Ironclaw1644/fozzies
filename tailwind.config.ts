@@ -10,8 +10,10 @@ export default {
     extend: {
       colors: {
         ivory: "#F7F4EF",
+        cream: "#F2EDE3",
         charcoal: "#1E1E1E",
         gold: "#C8A24A",
+        warmgold: "#B08D3F",
         softgray: "#8E8E8E",
       },
       fontFamily: {

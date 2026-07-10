@@ -2,13 +2,14 @@ import MenuRender from "@/components/menu/MenuRender";
 import { getSettingValue } from "@/lib/settings";
 import { buildMenuPdfPublicUrl, type MenuPdfSetting } from "@/lib/menuPdf";
 import { getDefaultMenuPayload, parseMenuPayload } from "@/lib/menuSettings";
+import { SITE_URL } from "@/lib/siteUrl";
 import type { Metadata } from "next";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Menu",
+  title: "Dinner Menu",
   description: "View the latest Fozzie's Dining menu, including seasonal chef selections and downloadable PDF menu.",
   alternates: {
     canonical: "/menu",
@@ -58,5 +59,27 @@ export default async function MenuPage() {
   }
   menuPdfPath = buildMenuPdfPublicUrl(storedPdf);
 
-  return <MenuRender menuMeta={menuMeta} menuSections={menuSections} footerBlock={menuFooterBlock} pdfUrl={menuPdfPath} />;
+  const menuJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    name: "Fozzie's Dining Dinner Menu",
+    url: `${SITE_URL}/menu`,
+    inLanguage: "en-US",
+    hasMenuSection: menuSections.map((section) => ({
+      "@type": "MenuSection",
+      name: section.title,
+      hasMenuItem: section.items.map((item) => ({
+        "@type": "MenuItem",
+        name: item.name,
+        ...(item.desc && item.desc.length > 0 ? { description: item.desc.join(", ") } : {}),
+      })),
+    })),
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(menuJsonLd) }} />
+      <MenuRender menuMeta={menuMeta} menuSections={menuSections} footerBlock={menuFooterBlock} pdfUrl={menuPdfPath} />
+    </>
+  );
 }

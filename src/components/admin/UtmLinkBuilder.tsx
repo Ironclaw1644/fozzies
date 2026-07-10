@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { SITE_URL } from "@/lib/siteUrl";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fozziesdining.com";
 const BASE_PATHS = ["/", "/menu", "/contact", "/join-the-team", "/reserve"];
 
 function fallbackCopy(value: string) {

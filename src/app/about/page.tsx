@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Chef Jason Head",
   description: "Learn about Chef Jason Head and the vision behind Fozzie's Dining in Cookeville, Tennessee.",
   alternates: {
     canonical: "/about",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     url: "/about",
     images: [
       {
-        url: "/gallery/chef_making_food.jpg",
+        url: "/gallery/chef_plating.jpg",
         alt: "Chef plating a dish at Fozzie's Dining",
       },
     ],
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "About | Fozzie's Dining",
     description: "Learn about Chef Jason Head and the vision behind Fozzie's Dining in Cookeville, Tennessee.",
-    images: ["/gallery/chef_making_food.jpg"],
+    images: ["/gallery/chef_plating.jpg"],
   },
 };
 
@@ -32,12 +32,12 @@ export default function AboutPage() {
       <div className="mb-16 overflow-hidden border border-charcoal/10 bg-cream">
         <div className="relative h-[60vh] min-h-[420px] w-full">
           <Image
-            src="/gallery/chef_making_food.jpg"
-            alt="Chef plating a dish"
+            src="/gallery/chef_plating.jpg"
+            alt="Chef Jason Head plating a dish at the kitchen pass at Fozzie's Dining"
             fill
             className="object-cover object-[50%_35%]"
             sizes="100vw"
-            priority={false}
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal/15 to-transparent"></div>
         </div>
