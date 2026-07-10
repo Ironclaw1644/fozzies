@@ -1,4 +1,5 @@
 import "@fontsource/playfair-display/600.css";
+import "@fontsource/playfair-display/400-italic.css";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import TrackingPixel from "@/components/TrackingPixel";
 import Footer from "@/components/Footer";

@@ -206,7 +206,7 @@ export default function HomePage() {
               />
             </div>
 
-            <p className="mx-auto mt-6 max-w-xl text-lg text-white/90">
+            <p className="mx-auto mt-6 max-w-xl font-serif text-xl italic leading-relaxed tracking-wide text-white/95 sm:text-2xl">
               Crafted for memorable evenings, celebrations, and the moments worth dressing up for.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
