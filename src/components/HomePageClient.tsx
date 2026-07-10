@@ -186,13 +186,23 @@ export default function HomePage() {
             </div>
 
             <div className="mt-7 flex justify-center">
+              {/* Mobile keeps the original square wordmark artwork — its built-in
+                  spacing gives the hero its taller, immersive look on phones. */}
+              <Image
+                src="/brand/title_tagline_hq_white.png"
+                alt="Fozzie's — Moments Turned To Memories"
+                width={1024}
+                height={1024}
+                priority
+                className="h-auto w-[94%] max-w-[640px] sm:hidden"
+              />
               <Image
                 src="/brand/title_tagline_white_trim.png"
                 alt="Fozzie's — Moments Turned To Memories"
                 width={751}
                 height={248}
                 priority
-                className="h-auto w-[88%] max-w-[440px] sm:max-w-[560px]"
+                className="hidden h-auto w-[88%] max-w-[560px] sm:block"
               />
             </div>
 
