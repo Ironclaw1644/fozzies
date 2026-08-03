@@ -8,15 +8,18 @@ import type { Metadata } from "next";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+const MENU_DESCRIPTION =
+  "Explore Fozzie's seasonal, chef-driven dinner menu in Cookeville, TN — small plates, mains, and house desserts that change with the season. View online or download the PDF.";
+
 export const metadata: Metadata = {
-  title: "Dinner Menu",
-  description: "View the latest Fozzie's Dining menu, including seasonal chef selections and downloadable PDF menu.",
+  title: "Dinner Menu in Cookeville, TN",
+  description: MENU_DESCRIPTION,
   alternates: {
     canonical: "/menu",
   },
   openGraph: {
-    title: "Menu | Fozzie's Dining",
-    description: "View the latest Fozzie's Dining menu, including seasonal chef selections and downloadable PDF menu.",
+    title: "Dinner Menu in Cookeville, TN | Fozzie's Dining",
+    description: MENU_DESCRIPTION,
     url: "/menu",
     images: [
       {
@@ -26,8 +29,8 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Menu | Fozzie's Dining",
-    description: "View the latest Fozzie's Dining menu, including seasonal chef selections and downloadable PDF menu.",
+    title: "Dinner Menu in Cookeville, TN | Fozzie's Dining",
+    description: MENU_DESCRIPTION,
     images: ["/brand/logo_all_1_hq.png"],
   },
 };
