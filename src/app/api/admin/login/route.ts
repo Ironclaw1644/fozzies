@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ADMIN_COOKIE, adminSessionValue } from "@/lib/adminSession";
 import { logServerEvent } from "@/lib/trackServer";
 
 export const runtime = "nodejs";
@@ -15,7 +16,7 @@ export async function POST(req: Request) {
   }
 
   const res = NextResponse.json({ ok: true });
-  res.cookies.set("fz_admin", "1", {
+  res.cookies.set(ADMIN_COOKIE, await adminSessionValue(expected), {
     httpOnly: true,
     secure: true,
     sameSite: "lax",

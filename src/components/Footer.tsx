@@ -42,8 +42,24 @@ export default function Footer() {
             href="https://instagram.com/fozziesdining"
             target="_blank"
             rel="noreferrer"
-            className="mt-4 inline-block text-charcoal underline decoration-gold/70 underline-offset-4 transition hover:opacity-80"
+            aria-label="Fozzie's Dining on Instagram"
+            className="mt-4 inline-flex items-center gap-2 text-charcoal underline decoration-gold/70 underline-offset-4 transition hover:opacity-80"
           >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
+            </svg>
             @fozziesdining
           </a>
         </div>
@@ -79,8 +95,8 @@ export default function Footer() {
           <ul className="mt-3 space-y-2">
             <li>Cookeville, Tennessee</li>
             <li>
-              <a href="tel:+19312617163" className={FOOTER_LINK_CLASS}>
-                (931) 261-7163
+              <a href="tel:+12058730686" className={FOOTER_LINK_CLASS}>
+                +1 (205) 873-0686
               </a>
             </li>
             <li>
@@ -112,12 +128,12 @@ export default function Footer() {
           </Link>
           <p className="text-softgray/80">© Fozzie&apos;s Dining 2026</p>
           <a
-            href="https://walkperro.com"
+            href="https://luziq.ai"
             target="_blank"
             rel="noreferrer"
             className="text-charcoal/70 no-underline transition hover:underline hover:underline-offset-4"
           >
-            Powered by WalkPerro
+            Powered by Luziq
           </a>
         </div>
       </div>

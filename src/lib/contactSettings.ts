@@ -37,6 +37,12 @@ export function getDefaultContactPayload(): ContactPayload {
       },
       {
         id: makeId("contact-block"),
+        label: "Phone",
+        value: "+1 (205) 873-0686",
+        href: "tel:+12058730686",
+      },
+      {
+        id: makeId("contact-block"),
         label: "Instagram",
         value: "@fozziesdining",
         href: "https://instagram.com/fozziesdining",

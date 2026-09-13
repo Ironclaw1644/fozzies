@@ -37,7 +37,7 @@ const homeJsonLd = {
   name: "Fozzie's Dining",
   url: SITE_URL,
   image: `${SITE_URL}/og-image.jpg`,
-  telephone: "+1-931-261-7163",
+  telephone: "+1-205-873-0686",
   email: "fozziesdining@gmail.com",
   priceRange: "$$$",
   acceptsReservations: "True",

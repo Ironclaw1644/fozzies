@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { ADMIN_COOKIE, isValidAdminSession } from "@/lib/adminSession";
 
 export function envOrNull(name: string) {
   const v = process.env[name];
@@ -20,7 +21,7 @@ export async function isAdminRequest(headers: Headers) {
   if (!expected) return false;
 
   const jar = await cookies();
-  const cookieOk = jar.get("fz_admin")?.value === "1";
+  const cookieOk = await isValidAdminSession(jar.get(ADMIN_COOKIE)?.value);
   const headerOk = headers.get("x-admin-token") === expected;
   return cookieOk || headerOk;
 }

@@ -1,4 +1,4 @@
-import { FZ_SCHEMA, supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 // How deep a SERP check looks before calling a keyword "not ranking".
 export const SERP_DEPTH = 20;
@@ -25,12 +25,13 @@ export type SerpCheck = {
   note: string | null;
 };
 
+const SCHEMA = "fozzies";
 const KW_TABLE = "seo_keywords";
 const CHECK_TABLE = "serp_checks";
 
 export async function listKeywords() {
   return supabaseAdmin()
-    .schema(FZ_SCHEMA)
+    .schema(SCHEMA)
     .from(KW_TABLE)
     .select("id,keyword,label,target_path,active,created_at")
     .order("created_at", { ascending: true });
@@ -38,7 +39,7 @@ export async function listKeywords() {
 
 export async function listChecks(limit = 4000) {
   return supabaseAdmin()
-    .schema(FZ_SCHEMA)
+    .schema(SCHEMA)
     .from(CHECK_TABLE)
     .select("id,keyword,checked_at,position,found,result_url,engine,location,source,note")
     .order("checked_at", { ascending: false })
@@ -55,7 +56,7 @@ export async function recordCheck(input: {
   note?: string | null;
 }) {
   return supabaseAdmin()
-    .schema(FZ_SCHEMA)
+    .schema(SCHEMA)
     .from(CHECK_TABLE)
     .insert({
       keyword: input.keyword.trim().toLowerCase(),
@@ -75,7 +76,7 @@ export async function upsertKeyword(input: {
   active?: boolean;
 }) {
   return supabaseAdmin()
-    .schema(FZ_SCHEMA)
+    .schema(SCHEMA)
     .from(KW_TABLE)
     .upsert(
       {

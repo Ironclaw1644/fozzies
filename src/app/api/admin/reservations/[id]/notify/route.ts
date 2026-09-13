@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { escHtml, renderEmailFooter, renderLuxuryEmailHtml } from "@/lib/emailMarketing";
+import { ADMIN_COOKIE, isValidAdminSession } from "@/lib/adminSession";
 import { supabaseSecretKey } from "@/lib/supabaseAdmin";
 
 export const runtime = "nodejs";
@@ -34,7 +35,7 @@ async function isAuthed(req: NextRequest) {
 
   // Next 16 typing in your project: cookies() -> Promise<ReadonlyRequestCookies>
   const jar = await cookies();
-  const cookieOk = jar.get("fz_admin")?.value === "1";
+  const cookieOk = await isValidAdminSession(jar.get(ADMIN_COOKIE)?.value);
   const headerOk = req.headers.get("x-admin-token") === expected;
 
   return cookieOk || headerOk;
