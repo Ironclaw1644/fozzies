@@ -62,9 +62,12 @@ export default function RootLayout({
       <body className="antialiased min-h-screen flex flex-col">
         {gaMeasurementId ? (
           <>
+            {/* gtag.js loads after window load (no high-priority preload competing with the
+                first paint). The inline stub below defines window.gtag/dataLayer right after
+                hydration, so events queue and are sent once gtag.js arrives. */}
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
             <Script id="ga4-init" strategy="afterInteractive">
               {`
