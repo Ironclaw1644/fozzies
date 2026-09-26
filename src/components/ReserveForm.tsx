@@ -184,7 +184,7 @@ export default function ReserveForm() {
                   <span>Prefer the phone? Call us for immediate booking:</span>{" "}
                   <a
                     href="tel:+12058730686"
-                    className="mt-2 inline-flex min-h-10 items-center py-1 font-medium text-warmgold no-underline transition hover:underline hover:underline-offset-4"
+                    className="mt-2 inline-flex min-h-10 items-center py-1 font-medium text-[#83672A] no-underline transition hover:underline hover:underline-offset-4"
                   >
                     +1 (205) 873-0686
                   </a>

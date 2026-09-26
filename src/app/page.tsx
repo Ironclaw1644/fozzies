@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import HomePageClient from "@/components/HomePageClient";
+import { normalizeBannerSettings } from "@/lib/banner";
+import { getSettingValue } from "@/lib/settings";
 import { SITE_URL } from "@/lib/siteUrl";
 
 export const metadata: Metadata = {
@@ -80,11 +82,16 @@ const homeJsonLd = [
   },
 ];
 
-export default function HomePage() {
+// The banner is rendered on the server so it doesn't push the hero down after load (CLS).
+// Saving it in admin calls revalidatePath("/").
+export const revalidate = 300;
+
+export default async function HomePage() {
+  const banner = normalizeBannerSettings(await getSettingValue<unknown>("site_banner"));
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }} />
-      <HomePageClient />
+      <HomePageClient initialBanner={banner} />
     </>
   );
 }

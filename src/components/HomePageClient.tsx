@@ -36,7 +36,7 @@ const { props: wordmarkDesktop } = getImageProps({
   sizes: "560px",
 });
 
-export default function HomePage() {
+export default function HomePage({ initialBanner = null }: { initialBanner?: BannerSettings | null }) {
   const slides = useMemo(
     () => [
       { src: "/gallery/dining_room_1.png", alt: "Fine dining room at Fozzie's Dining in Cookeville" },
@@ -52,7 +52,7 @@ export default function HomePage() {
   const [expandedAnnouncementIds, setExpandedAnnouncementIds] = useState<string[]>([]);
   const [collapsedDesktopAnnouncementIds, setCollapsedDesktopAnnouncementIds] = useState<string[]>([]);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [banner, setBanner] = useState<BannerSettings | null>(null);
+  const [banner, setBanner] = useState<BannerSettings | null>(initialBanner);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterBusy, setNewsletterBusy] = useState(false);
   const [newsletterStatus, setNewsletterStatus] = useState("");
@@ -115,7 +115,7 @@ export default function HomePage() {
         if (!res.ok || cancelled) return;
         setBanner(json as BannerSettings);
       } catch {
-        if (!cancelled) setBanner(null);
+        // Keep the server-rendered banner.
       }
     }
     loadBanner();
