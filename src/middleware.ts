@@ -25,6 +25,13 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Headless API clients (rank-check scripts) may send the admin token directly;
+  // it is the same secret the login endpoint accepts.
+  const headerToken = req.headers.get("x-admin-token");
+  if (req.nextUrl.pathname.startsWith("/api/") && headerToken && headerToken === process.env.ADMIN_TOKEN) {
+    return NextResponse.next();
+  }
+
   // Cookie must be a valid signed session
   if (!(await isValidAdminSession(cookie))) {
     if (req.nextUrl.pathname.startsWith("/api/")) {
