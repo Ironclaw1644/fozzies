@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import { isAdminRequest } from "@/lib/emailMarketing";
-import { listChecks, listKeywords, recordCheck, upsertKeyword, SERP_DEPTH } from "@/lib/serp";
+import {
+  isSerpSource,
+  listChecks,
+  listKeywords,
+  recordCheck,
+  upsertKeyword,
+  MAX_POSITION,
+  SERP_SOURCES,
+} from "@/lib/serp";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -51,14 +59,38 @@ export async function POST(req: Request) {
   let position: number | null = null;
   if (found) {
     const p = Number(body.position);
-    if (!Number.isInteger(p) || p < 1 || p > SERP_DEPTH) {
+    if (!Number.isFinite(p) || p < 1 || p > MAX_POSITION) {
       return NextResponse.json(
-        { ok: false, error: `Position must be an integer 1–${SERP_DEPTH} when found.` },
+        { ok: false, error: `Position must be a number 1–${MAX_POSITION} (one decimal allowed) when found.` },
         { status: 400 }
       );
     }
-    position = p;
+    position = Math.round(p * 10) / 10;
   }
+
+  const source = body.source ? String(body.source).trim().toLowerCase() : "manual";
+  if (!isSerpSource(source)) {
+    return NextResponse.json(
+      { ok: false, error: `Source must be one of: ${SERP_SOURCES.join(", ")}.` },
+      { status: 400 }
+    );
+  }
+
+  let checkedAt: string | null = null;
+  if (body.checkedAt) {
+    const t = Date.parse(String(body.checkedAt));
+    if (Number.isNaN(t)) return NextResponse.json({ ok: false, error: "checkedAt must be an ISO date." }, { status: 400 });
+    checkedAt = new Date(t).toISOString();
+  }
+
+  const optNum = (v: unknown) => {
+    if (v === undefined || v === null || v === "") return null;
+    const n = Number(v);
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  };
+  const clicks = optNum(body.clicks);
+  const impressions = optNum(body.impressions);
+  const ctr = optNum(body.ctr);
 
   const { error } = await recordCheck({
     keyword,
@@ -66,8 +98,13 @@ export async function POST(req: Request) {
     found,
     resultUrl: body.resultUrl ? String(body.resultUrl) : null,
     location: body.location ? String(body.location) : null,
-    source: body.source ? String(body.source) : "manual",
+    engine: body.engine ? String(body.engine) : undefined,
+    source,
     note: body.note ? String(body.note) : null,
+    checkedAt,
+    clicks: clicks === null ? null : Math.round(clicks),
+    impressions: impressions === null ? null : Math.round(impressions),
+    ctr: ctr !== null && ctr <= 1 ? ctr : null,
   });
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
   return NextResponse.json({ ok: true });

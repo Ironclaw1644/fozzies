@@ -101,14 +101,15 @@ export default function SerpTracker({ keywords }: { keywords: KeywordOpt[] }) {
               className={INPUT}
               type="number"
               min={1}
-              max={20}
-              placeholder="Position (1–20)"
+              max={100}
+              step="0.1"
+              placeholder="Position (1–100)"
               value={position}
               onChange={(e) => setPosition(e.target.value)}
               required
             />
           ) : (
-            <p className="text-xs text-softgray">Recorded as “not in top 20”.</p>
+            <p className="text-xs text-softgray">Recorded as “not found”.</p>
           )}
           <input
             className={INPUT}

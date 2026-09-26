@@ -1,5 +1,5 @@
 import SerpTracker from "@/components/admin/SerpTracker";
-import { listChecks, listKeywords, summarizeKeyword, SERP_DEPTH, type SerpCheck } from "@/lib/serp";
+import { isRanking, listChecks, listKeywords, summarizeKeyword, MAX_POSITION, SERP_DEPTH, type SerpCheck } from "@/lib/serp";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -9,7 +9,7 @@ function Sparkline({ points }: { points: number[] }) {
   if (points.length < 2) return <span className="text-softgray/60">—</span>;
   const w = 90;
   const h = 24;
-  const max = SERP_DEPTH + 1;
+  const max = MAX_POSITION + 1;
   const step = w / (points.length - 1);
   const y = (p: number) => h - (1 - (Math.min(p, max) - 1) / (max - 1)) * (h - 4) - 2;
   const d = points.map((p, i) => `${i === 0 ? "M" : "L"}${(i * step).toFixed(1)},${y(p).toFixed(1)}`).join(" ");
@@ -22,9 +22,23 @@ function Sparkline({ points }: { points: number[] }) {
 
 function positionLabel(c: SerpCheck | null) {
   if (!c) return <span className="text-softgray/60">No data</span>;
-  if (!c.found || !c.position) return <span className="text-softgray">Not in top {SERP_DEPTH}</span>;
-  const tone = c.position <= 3 ? "text-green-700" : c.position <= 10 ? "text-charcoal" : "text-amber-700";
-  return <span className={`font-medium ${tone}`}>#{c.position}</span>;
+  if (!c.found || !c.position) return <span className="text-softgray">Not found</span>;
+  const pos = Number(c.position);
+  const tone = pos <= 3 ? "text-green-700" : pos <= 10 ? "text-charcoal" : pos <= SERP_DEPTH ? "text-amber-700" : "text-softgray";
+  return (
+    <span className={`font-medium ${tone}`}>
+      #{pos}
+      {c.source === "gsc" && <span className="ml-1 text-[10px] font-normal text-softgray">avg</span>}
+    </span>
+  );
+}
+
+function gscCell(c: SerpCheck | null, field: "clicks" | "impressions" | "ctr") {
+  if (!c || c.source !== "gsc" || c[field] === null || c[field] === undefined) {
+    return <span className="text-softgray/60">—</span>;
+  }
+  const v = Number(c[field]);
+  return field === "ctr" ? `${(v * 100).toFixed(1)}%` : v.toLocaleString();
 }
 
 function DeltaBadge({ delta }: { delta: number | null }) {
@@ -54,8 +68,8 @@ export default async function SeoPage() {
     return { keyword: k, ...summary };
   });
 
-  const ranking = rows.filter((r) => r.latest?.found).length;
-  const top10 = rows.filter((r) => r.latest?.found && (r.latest.position ?? 99) <= 10).length;
+  const ranking = rows.filter((r) => isRanking(r.latest)).length;
+  const top10 = rows.filter((r) => r.latest?.found && Number(r.latest.position ?? 999) <= 10).length;
   const tracked = rows.length;
   const lastChecked = checks[0]?.checked_at ? new Date(checks[0].checked_at).toLocaleDateString() : "—";
 
@@ -72,7 +86,7 @@ export default async function SeoPage() {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
           { label: "Keywords tracked", value: tracked },
-          { label: "Ranking (in top 20)", value: ranking },
+          { label: `Ranking (in top ${SERP_DEPTH})`, value: ranking },
           { label: "In top 10", value: top10 },
           { label: "Last updated", value: lastChecked },
         ].map((s) => (
@@ -84,13 +98,17 @@ export default async function SeoPage() {
       </div>
 
       <div className="overflow-x-auto rounded border border-charcoal/10">
-        <table className="w-full min-w-[720px] text-sm">
+        <table className="w-full min-w-[960px] text-sm">
           <thead>
             <tr className="border-b border-charcoal/10 bg-ivory/60 text-left text-[11px] tracking-[0.12em] text-softgray">
               <th className="px-3 py-2">KEYWORD</th>
               <th className="px-3 py-2">TARGET</th>
               <th className="px-3 py-2">POSITION</th>
               <th className="px-3 py-2">CHANGE</th>
+              <th className="px-3 py-2">CLICKS</th>
+              <th className="px-3 py-2">IMPR.</th>
+              <th className="px-3 py-2">CTR</th>
+              <th className="px-3 py-2">SOURCE</th>
               <th className="px-3 py-2">TREND</th>
               <th className="px-3 py-2">CHECKED</th>
             </tr>
@@ -98,7 +116,7 @@ export default async function SeoPage() {
           <tbody>
             {rows.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-3 py-6 text-center text-softgray">
+                <td colSpan={10} className="px-3 py-6 text-center text-softgray">
                   No keywords yet — add one below.
                 </td>
               </tr>
@@ -111,8 +129,12 @@ export default async function SeoPage() {
                 <td className="px-3 py-2">
                   <DeltaBadge delta={r.delta} />
                 </td>
+                <td className="px-3 py-2 text-charcoal">{gscCell(r.latest, "clicks")}</td>
+                <td className="px-3 py-2 text-charcoal">{gscCell(r.latest, "impressions")}</td>
+                <td className="px-3 py-2 text-charcoal">{gscCell(r.latest, "ctr")}</td>
+                <td className="px-3 py-2 text-softgray">{r.latest?.source ?? "—"}</td>
                 <td className="px-3 py-2">
-                  <Sparkline points={r.history.map((c) => (c.found && c.position ? c.position : SERP_DEPTH + 1))} />
+                  <Sparkline points={r.history.map((c) => (c.found && c.position ? Number(c.position) : MAX_POSITION + 1))} />
                 </td>
                 <td className="px-3 py-2 text-softgray">
                   {r.latest?.checked_at ? new Date(r.latest.checked_at).toLocaleDateString() : "—"}
@@ -126,9 +148,10 @@ export default async function SeoPage() {
       <SerpTracker keywords={keywords.map((k) => ({ keyword: k.keyword, label: k.label }))} />
 
       <p className="text-xs leading-5 text-softgray">
-        Data source: manual / scheduled web-search checks and Google Search Console baselines. Positions approximate a
-        generic (non-geolocated) Google result and do <strong>not</strong> include the local Map Pack, which is driven by
-        your Google Business Profile. For authoritative positions, cross-reference Search Console.
+        Data sources: Google Search Console (daily, &ldquo;avg&rdquo; = impression-weighted average position over the
+        trailing 7 days, ~3 days behind, with clicks, impressions and CTR), plus manual and scripted rank checks.
+        &ldquo;Ranking&rdquo; means found in the top {SERP_DEPTH}. None of these include the local Map Pack, which is
+        driven by your Google Business Profile.
       </p>
     </div>
   );
