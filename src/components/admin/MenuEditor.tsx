@@ -58,7 +58,7 @@ function normalizeFooterHrefInput(value: string) {
   if (!trimmed) return "";
   if (/^https?:\/\//i.test(trimmed)) return trimmed;
   if (/^www\./i.test(trimmed)) return `https://${trimmed}`;
-  if (/^@/.test(trimmed)) return `https://instagram.com/${trimmed.replace(/^@+/, "")}`;
+  if (/^@/.test(trimmed)) return `https://www.instagram.com/${trimmed.replace(/^@+/, "")}/`;
   if (trimmed.includes(".") && !/^[a-z][a-z\d+\-.]*:\/\//i.test(trimmed)) return `https://${trimmed}`;
   return trimmed;
 }

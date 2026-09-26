@@ -86,7 +86,7 @@ function normalizeFooterConnectLinks(
 function socialValueToHref(value: string) {
   const trimmed = value.trim();
   if (/^https?:\/\//i.test(trimmed)) return trimmed;
-  if (/^@/.test(trimmed)) return `https://instagram.com/${trimmed.replace(/^@+/, "")}`;
+  if (/^@/.test(trimmed)) return `https://www.instagram.com/${trimmed.replace(/^@+/, "")}/`;
   return "";
 }
 

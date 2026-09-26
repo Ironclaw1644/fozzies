@@ -39,10 +39,10 @@ export default function Footer() {
             dressing up for.
           </p>
           <a
-            href="https://instagram.com/fozziesdining"
+            href="https://www.instagram.com/fozziesdining/"
             target="_blank"
             rel="noreferrer"
-            aria-label="Fozzie's Dining on Instagram"
+            aria-label="@fozziesdining on Instagram"
             className="mt-4 inline-flex items-center gap-2 text-charcoal underline decoration-gold/70 underline-offset-4 transition hover:opacity-80"
           >
             <svg
@@ -126,7 +126,7 @@ export default function Footer() {
           <Link href="/privacy" className={FOOTER_LINK_CLASS}>
             Privacy Policy
           </Link>
-          <p className="text-softgray/80">© Fozzie&apos;s Dining 2026</p>
+          <p className="text-softgray">© Fozzie&apos;s Dining 2026</p>
           <a
             href="https://luziq.ai/websites/"
             target="_blank"

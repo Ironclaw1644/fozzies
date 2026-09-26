@@ -14,7 +14,7 @@ export const MENU_META: MenuMeta = {
   subtitle: "Dinner menu — updated seasonally.",
   glutenFreeNote: "gluten-free options available",
   splitFee: "split-fee charge — $10",
-  reservations: "Reservations — OpenTable",
+  reservations: "Reservations — request online or call",
   hours: [
     { label: "Dinner", value: "Tuesday–Saturday | 5:00–9:00 PM" },
     { label: "Happy Hour", value: "Tuesday–Saturday | 4:00–6:00 PM" },
@@ -25,7 +25,7 @@ export const MENU_META: MenuMeta = {
   ],
   social: [
     { label: "Facebook", value: "—", href: "" },
-    { label: "Instagram", value: "—", href: "https://instagram.com/fozziesdining" },
+    { label: "Instagram", value: "—", href: "https://www.instagram.com/fozziesdining/" },
   ],
 };
 

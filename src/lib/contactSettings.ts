@@ -45,7 +45,7 @@ export function getDefaultContactPayload(): ContactPayload {
         id: makeId("contact-block"),
         label: "Instagram",
         value: "@fozziesdining",
-        href: "https://instagram.com/fozziesdining",
+        href: "https://www.instagram.com/fozziesdining/",
       },
     ],
     note: "",

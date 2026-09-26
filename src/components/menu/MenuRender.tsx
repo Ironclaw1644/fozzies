@@ -171,6 +171,7 @@ export default function MenuRender({ menuMeta, menuSections, footerBlock, pdfUrl
               alt={resolvedMeta.title}
               fill
               priority
+              sizes="160px"
               className="object-contain object-center -translate-y-14"
             />
           </div>
@@ -223,7 +224,9 @@ export default function MenuRender({ menuMeta, menuSections, footerBlock, pdfUrl
           <div className="text-softgray">
             <div className="text-xs tracking-[0.18em]">RESERVATIONS</div>
             <div className="mt-3 text-[15px] leading-6">
-              {resolvedFooterBlock.reservationsText}
+              <Link href="/#reserve" className={`text-charcoal/70 ${GOLD_UNDERLINE_LINK_CLASS}`}>
+                {resolvedFooterBlock.reservationsText}
+              </Link>
               {resolvedFooterBlock.reservationsDetails.map((f, index) => (
                 <div key={`${f.label}-${index}`} className="mt-3">
                   <div className="text-charcoal/80">{f.label}</div>
