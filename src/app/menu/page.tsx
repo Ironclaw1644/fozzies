@@ -6,10 +6,11 @@ import { SITE_URL } from "@/lib/siteUrl";
 import type { Metadata } from "next";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+// Static with background refresh; admin saves call revalidatePath() for instant updates.
+export const revalidate = 300;
 
 const MENU_DESCRIPTION =
-  "Explore Fozzie's seasonal, chef-driven dinner menu in Cookeville, TN — small plates, mains, and house desserts that change with the season. View online or download the PDF.";
+  "Explore Fozzie's seasonal, chef-driven dinner menu in Cookeville, TN: small plates, mains and house desserts. View it online or download the PDF.";
 
 export const metadata: Metadata = {
   title: "Dinner Menu in Cookeville, TN",

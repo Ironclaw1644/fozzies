@@ -3,17 +3,18 @@ import { getDefaultFaqPayload, parseFaqPayload } from "@/lib/faqSettings";
 import { getSettingValue } from "@/lib/settings";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+// Static with background refresh; admin saves call revalidatePath() for instant updates.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "FAQ",
-  description: "Read frequently asked questions about dining at Fozzie's Dining in Cookeville, Tennessee.",
+  title: "FAQ: Hours, Dress Code and Reservations",
+  description: "Answers about Fozzie's Dining in Cookeville, TN: dinner and happy hour times, dress code, reservations, gluten-free options, private parties and catering.",
   alternates: {
     canonical: "/faq",
   },
   openGraph: {
-    title: "FAQ | Fozzie's Dining",
-    description: "Read frequently asked questions about dining at Fozzie's Dining in Cookeville, Tennessee.",
+    title: "FAQ: Hours, Dress Code and Reservations | Fozzie's Dining",
+    description: "Answers about Fozzie's Dining in Cookeville, TN: dinner and happy hour times, dress code, reservations, gluten-free options, private parties and catering.",
     url: "/faq",
     images: [
       {
@@ -23,8 +24,8 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "FAQ | Fozzie's Dining",
-    description: "Read frequently asked questions about dining at Fozzie's Dining in Cookeville, Tennessee.",
+    title: "FAQ: Hours, Dress Code and Reservations | Fozzie's Dining",
+    description: "Answers about Fozzie's Dining in Cookeville, TN: dinner and happy hour times, dress code, reservations, gluten-free options, private parties and catering.",
     images: ["/brand/logo_all_1_hq.png"],
   },
 };
@@ -58,7 +59,10 @@ export default async function FAQPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
-          <h1 className="font-serif text-4xl text-charcoal">{faqPayload.title}</h1>
+          <h1 className="font-serif text-4xl text-charcoal">
+            {/* The admin default title is just "FAQ"; give the page a specific H1. */}
+            {faqPayload.title.trim().toLowerCase() === "faq" ? "Fozzie's Dining FAQ" : faqPayload.title}
+          </h1>
           {faqPayload.subtitle ? <p className="mx-auto mt-3 max-w-2xl text-softgray">{faqPayload.subtitle}</p> : null}
           <div className="mx-auto mt-6 h-px w-24 bg-warmgold" />
         </div>

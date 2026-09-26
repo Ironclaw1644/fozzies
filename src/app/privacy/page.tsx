@@ -10,6 +10,19 @@ export const metadata: Metadata = {
     title: "Privacy | Fozzie's Dining",
     description: "Read the Fozzie's Dining privacy policy for reservations, newsletter, applications, and analytics.",
     url: "/privacy",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Candlelit table setting at Fozzie's Dining in Cookeville, TN",
+      },
+    ],
+  },
+  twitter: {
+    title: "Privacy | Fozzie's Dining",
+    description: "Read the Fozzie's Dining privacy policy for reservations, newsletter, applications, and analytics.",
+    images: ["/og-image.jpg"],
   },
 };
 

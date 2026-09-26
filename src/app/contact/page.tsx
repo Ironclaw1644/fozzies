@@ -5,7 +5,8 @@ import { GOLD_UNDERLINE_LINK_CLASS } from "@/lib/linkStyles";
 import { getSettingValue } from "@/lib/settings";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+// Static with background refresh; admin saves call revalidatePath() for instant updates.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -42,7 +43,12 @@ export default async function ContactPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <h1 className="font-serif text-4xl text-charcoal">{contactPayload.title}</h1>
+      <h1 className="font-serif text-4xl text-charcoal">
+        {/* The admin default title is just "Contact"; give the page a specific H1. */}
+        {contactPayload.title.trim().toLowerCase() === "contact"
+          ? "Contact Fozzie's Dining in Cookeville, TN"
+          : contactPayload.title}
+      </h1>
       {contactPayload.subtitle ? <p className="mt-3 max-w-2xl text-softgray">{contactPayload.subtitle}</p> : null}
       <div className="mt-6 h-px w-24 bg-warmgold" />
 
@@ -65,6 +71,31 @@ export default async function ContactPage() {
               ))}
             </div>
             {contactPayload.note ? <p className="mt-5 text-sm leading-6 text-softgray">{contactPayload.note}</p> : null}
+          </section>
+
+          <section className="mt-6 border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
+            <h2 className="font-serif text-2xl text-charcoal">Reservations and Groups</h2>
+            <div className="mt-4 space-y-3 leading-7 text-softgray">
+              <p>
+                Reservations are recommended, especially on weekends and for special occasions. Send a request through
+                the{" "}
+                <a href="/#reserve" className={GOLD_UNDERLINE_LINK_CLASS}>
+                  reservation form
+                </a>{" "}
+                and the team will confirm by email, or give us a call.
+              </p>
+              <p>
+                For parties of 10 or more, and for offsite events, please call or email. Planning a celebration? See{" "}
+                <a href="/private-dining-cookeville" className={GOLD_UNDERLINE_LINK_CLASS}>
+                  private dining
+                </a>{" "}
+                and{" "}
+                <a href="/romantic-dinner-cookeville" className={GOLD_UNDERLINE_LINK_CLASS}>
+                  romantic dinners
+                </a>{" "}
+                at Fozzie&apos;s.
+              </p>
+            </div>
           </section>
 
           <section className="mt-6 border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">

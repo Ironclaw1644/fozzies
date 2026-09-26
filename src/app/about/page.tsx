@@ -1,15 +1,19 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/siteUrl";
+
+const ABOUT_DESCRIPTION =
+  "Meet Chef Jason Head, the Birmingham-born chef behind Fozzie's Dining in Cookeville, TN: globally inspired cooking rooted in Southern hospitality.";
 
 export const metadata: Metadata = {
   title: "About Chef Jason Head",
-  description: "Learn about Chef Jason Head and the vision behind Fozzie's Dining in Cookeville, Tennessee.",
+  description: ABOUT_DESCRIPTION,
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About | Fozzie's Dining",
-    description: "Learn about Chef Jason Head and the vision behind Fozzie's Dining in Cookeville, Tennessee.",
+    title: "About Chef Jason Head | Fozzie's Dining",
+    description: ABOUT_DESCRIPTION,
     url: "/about",
     images: [
       {
@@ -19,15 +23,43 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "About | Fozzie's Dining",
-    description: "Learn about Chef Jason Head and the vision behind Fozzie's Dining in Cookeville, Tennessee.",
+    title: "About Chef Jason Head | Fozzie's Dining",
+    description: ABOUT_DESCRIPTION,
     images: ["/gallery/chef_plating.jpg"],
   },
+};
+
+const chefJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_URL}/about#chef-jason-head`,
+  name: "Jason Head",
+  alternateName: "Fozzie",
+  jobTitle: "Chef & Owner",
+  url: `${SITE_URL}/about`,
+  image: `${SITE_URL}/gallery/chef_portrait.jpg`,
+  birthPlace: { "@type": "Place", name: "Birmingham, Alabama" },
+  alumniOf: { "@type": "CollegeOrUniversity", name: "University of Mississippi" },
+  worksFor: { "@type": "Restaurant", "@id": `${SITE_URL}/#restaurant`, name: "Fozzie's Dining", url: SITE_URL },
+  knowsAbout: ["Southern cuisine", "Mediterranean cuisine", "Asian cuisine", "Cajun cuisine", "Hispanic cuisine", "Catering"],
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "About Chef Jason Head", item: `${SITE_URL}/about` },
+  ],
 };
 
 export default function AboutPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([chefJsonLd, breadcrumbJsonLd]) }}
+      />
 
       <div className="mb-16 overflow-hidden border border-charcoal/10 bg-cream">
         <div className="relative h-[60vh] min-h-[420px] w-full">
@@ -45,7 +77,7 @@ export default function AboutPage() {
 
       <div className="max-w-3xl">
         <h1 className="font-serif text-4xl md:text-5xl text-charcoal">
-          About
+          About Chef Jason Head
         </h1>
 
         <p className="mt-4 text-softgray tracking-wide">
@@ -91,6 +123,37 @@ export default function AboutPage() {
         </div>
       </div>
 
+      <div className="mt-16 max-w-3xl text-charcoal leading-8">
+        <p>
+          See what Chef Jason is cooking now on the{" "}
+          <a href="/menu" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            Fozzie&apos;s dinner menu
+          </a>
+          , from Nana&apos;s Shrimp &amp; Grits to Hallie Kay&apos;s Filet Mignon. Planning an evening? Start with{" "}
+          <a
+            href="/best-fine-dining-cookeville"
+            className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal"
+          >
+            fine dining in Cookeville
+          </a>
+          , a{" "}
+          <a
+            href="/romantic-dinner-cookeville"
+            className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal"
+          >
+            romantic dinner for two
+          </a>
+          , or{" "}
+          <a
+            href="/private-dining-cookeville"
+            className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal"
+          >
+            private dining for a larger group
+          </a>
+          .
+        </p>
+      </div>
+
       {/* Elevated Signature Section */}
       <div className="mt-24 flex flex-col items-center">
 
@@ -99,7 +162,7 @@ export default function AboutPage() {
         <div className="relative w-52 h-20 opacity-60">
           <Image
             src="/brand/fozzie_sig.png"
-            alt="Chef Jason Signature"
+            alt="Chef Jason Head's signature"
             fill
             className="object-contain"
           />
