@@ -14,7 +14,7 @@ export default {
         charcoal: "#1E1E1E",
         gold: "#C8A24A",
         warmgold: "#B08D3F",
-        softgray: "#8E8E8E",
+        softgray: "#6B6B6B",
       },
       fontFamily: {
         serif: ["Playfair Display", "serif"],

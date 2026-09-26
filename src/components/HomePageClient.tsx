@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import ReserveForm from "@/components/ReserveForm";
 import { trackEvent } from "@/lib/analytics";
@@ -18,6 +18,23 @@ type BannerSettings = {
   mode: "static" | "marquee";
   speed: number;
 };
+
+const { props: wordmarkMobile } = getImageProps({
+  src: "/brand/title_tagline_hq_white.png",
+  alt: "",
+  width: 1024,
+  height: 1024,
+  sizes: "(min-width: 640px) 560px, 94vw",
+  fetchPriority: "high",
+  loading: "eager",
+});
+const { props: wordmarkDesktop } = getImageProps({
+  src: "/brand/title_tagline_white_trim.png",
+  alt: "",
+  width: 751,
+  height: 248,
+  sizes: "560px",
+});
 
 export default function HomePage() {
   const slides = useMemo(
@@ -40,10 +57,28 @@ export default function HomePage() {
   const [newsletterBusy, setNewsletterBusy] = useState(false);
   const [newsletterStatus, setNewsletterStatus] = useState("");
 
+  // Only the first slide is in the server HTML. The rest mount after the page has
+  // loaded, so they don't compete with the LCP image for bandwidth on mobile.
+  const [slideshowReady, setSlideshowReady] = useState(false);
+
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const start = () => {
+      timer = setTimeout(() => setSlideshowReady(true), 1500);
+    };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+    return () => {
+      window.removeEventListener("load", start);
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!slideshowReady) return;
     const id = setInterval(() => setActive((i) => (i + 1) % slides.length), 9000);
     return () => clearInterval(id);
-  }, [slides.length]);
+  }, [slideshowReady, slides.length]);
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px)");
@@ -151,24 +186,28 @@ export default function HomePage() {
       <section className="relative overflow-hidden border border-charcoal/10 bg-cream shadow-sm">
         {/* Background slides */}
         <div className="absolute inset-0">
-          {slides.map((sl, idx) => (
-            <div
-              key={sl.src}
-              className={[
-                "absolute inset-0 transition-opacity duration-[2400ms] ease-in-out",
-                idx === active ? "opacity-100" : "opacity-0",
-              ].join(" ")}
-            >
-              <Image
-                src={sl.src}
-                alt={sl.alt}
-                fill
-                priority={idx === 0}
-                className="object-cover"
-                sizes="(min-width: 768px) 1100px, 100vw"
-              />
-            </div>
-          ))}
+          {slides.map((sl, idx) =>
+            idx === 0 || slideshowReady ? (
+              <div
+                key={sl.src}
+                className={[
+                  "absolute inset-0",
+                  slideshowReady ? "transition-opacity duration-[2400ms] ease-in-out" : "",
+                  idx === active ? "opacity-100" : "opacity-0",
+                ].join(" ")}
+              >
+                <Image
+                  src={sl.src}
+                  alt={sl.alt}
+                  fill
+                  priority={idx === 0}
+                  fetchPriority={idx === 0 ? "high" : "auto"}
+                  className="object-cover"
+                  sizes="(min-width: 1152px) 1152px, 100vw"
+                />
+              </div>
+            ) : null
+          )}
 
           {/* Gold tint + vignette for readability (no blur) */}
           <div className="absolute inset-0 bg-[rgba(200,162,74,0.22)]" />
@@ -177,7 +216,6 @@ export default function HomePage() {
 
         {/* Foreground content */}
         <div className="relative z-10 px-6 py-14 sm:px-10 sm:py-20 text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.92)]">
-          <h1 className="sr-only">Fozzie&apos;s Dining — Chef-Driven Fine Dining in Cookeville, TN</h1>
           <div className="text-center">
             <div className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-white/90">
               <span className="h-px w-10 bg-gold/70" />
@@ -185,26 +223,27 @@ export default function HomePage() {
               <span className="h-px w-10 bg-gold/70" />
             </div>
 
-            <div className="mt-7 flex justify-center">
-              {/* Mobile keeps the original square wordmark artwork — its built-in
-                  spacing gives the hero its taller, immersive look on phones. */}
-              <Image
-                src="/brand/title_tagline_hq_white.png"
-                alt="Fozzie's — Moments Turned To Memories"
-                width={1024}
-                height={1024}
-                priority
-                className="h-auto w-[94%] max-w-[640px] sm:hidden"
-              />
-              <Image
-                src="/brand/title_tagline_white_trim.png"
-                alt="Fozzie's — Moments Turned To Memories"
-                width={751}
-                height={248}
-                priority
-                className="hidden h-auto w-[88%] max-w-[560px] sm:block"
-              />
-            </div>
+            {/* The visible wordmark is the page's H1. Mobile keeps the original square
+                artwork (its built-in spacing gives the hero its taller look on phones);
+                <picture> means each device downloads only its own version, at display width. */}
+            <h1 className="mt-7 flex justify-center">
+              <picture className="contents">
+                <source
+                  media="(min-width: 640px)"
+                  srcSet={wordmarkDesktop.srcSet}
+                  sizes="560px"
+                  width={wordmarkDesktop.width}
+                  height={wordmarkDesktop.height}
+                />
+                <img
+                  {...wordmarkMobile}
+                  alt="Fozzie's Dining — Moments Turned To Memories"
+                  sizes="(min-width: 640px) 560px, 94vw"
+                  className="h-auto w-[94%] max-w-[640px] sm:w-[88%] sm:max-w-[560px]"
+                />
+              </picture>
+              <span className="sr-only"> — Chef-Driven Fine Dining in Cookeville, TN</span>
+            </h1>
 
             <p className="mx-auto mt-6 max-w-xl text-base font-light leading-relaxed tracking-[0.06em] text-white/85 sm:text-lg">
               Crafted for memorable evenings, celebrations, and the moments worth dressing up for.

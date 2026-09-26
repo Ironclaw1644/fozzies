@@ -50,6 +50,7 @@ export default function Header() {
       width={617}
       height={187}
       priority
+      sizes="120px"
       className={className}
     />
   );
