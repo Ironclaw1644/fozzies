@@ -6,6 +6,9 @@ import { track } from "@/lib/trackClient";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
+// Fozzie's hasn't opened yet. Flip to false on opening day to drop the notice and restore the booking copy.
+const GRAND_OPENING_SOON = true;
+
 function pad2(n: number) {
   return String(n).padStart(2, "0");
 }
@@ -69,6 +72,24 @@ export default function ReserveForm() {
   return (
     <div className="border border-charcoal/10 bg-cream shadow-sm">
       <div className="px-6 py-6 sm:px-8">
+        {GRAND_OPENING_SOON ? (
+          <div
+            role="note"
+            className="mx-auto mb-8 max-w-2xl border border-gold/60 bg-ivory px-6 py-5 text-center"
+          >
+            <div className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] font-semibold tracking-[0.22em] text-[#83672A] sm:text-xs">
+              <span className="h-px w-8 bg-gold/70" />
+              GRAND OPENING
+              <span className="h-px w-8 bg-gold/70" />
+            </div>
+            <p className="mt-2 font-serif text-2xl italic text-charcoal">Coming Soon</p>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-softgray">
+              We’re putting the finishing touches on Fozzie’s. Send us a request below and we’ll be in
+              touch as soon as reservations open.
+            </p>
+          </div>
+        ) : null}
+
         <div className="text-center">
           <div className="inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.22em] text-softgray">
             <span className="h-px w-10 bg-gold/70" />
@@ -77,7 +98,9 @@ export default function ReserveForm() {
           </div>
           <h2 className="mt-4 font-serif text-3xl text-charcoal">Request a table</h2>
           <p className="mx-auto mt-3 max-w-2xl text-softgray">
-            This sends a request directly to the team. We’ll confirm by email.
+            {GRAND_OPENING_SOON
+              ? "This sends a request directly to the team. We’ll reach out by email once we open."
+              : "This sends a request directly to the team. We’ll confirm by email."}
           </p>
         </div>
 
@@ -175,13 +198,17 @@ export default function ReserveForm() {
             <div className="text-xs text-softgray">
               {status === "success" ? (
                 <span className="text-charcoal/80">
-                  Thank you — we’ll confirm by email shortly.
+                  {GRAND_OPENING_SOON
+                    ? "Thank you — we’ll be in touch as soon as we open."
+                    : "Thank you — we’ll confirm by email shortly."}
                 </span>
               ) : status === "error" ? (
                 <span className="text-red-700">{error}</span>
               ) : (
                 <>
-                  <span>Prefer the phone? Call us for immediate booking:</span>{" "}
+                  <span>
+                    {GRAND_OPENING_SOON ? "Questions? Give us a call:" : "Prefer the phone? Call us for immediate booking:"}
+                  </span>{" "}
                   <a
                     href="tel:+12058730686"
                     className="mt-2 inline-flex min-h-10 items-center py-1 font-medium text-[#83672A] no-underline transition hover:underline hover:underline-offset-4"
