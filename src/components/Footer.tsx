@@ -128,7 +128,7 @@ export default function Footer() {
           </Link>
           <p className="text-softgray">© Fozzie&apos;s Dining 2026</p>
           <a
-            href="https://luziq.ai/websites/"
+            href="https://luziq.ai/services/small-business-websites/"
             target="_blank"
             rel="noreferrer"
             className="text-charcoal/70 no-underline transition hover:underline hover:underline-offset-4"
