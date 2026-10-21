@@ -21,6 +21,10 @@ export const RESTAURANT = {
   dressCode: "Smart casual. Jackets are welcome but not required.",
 } as const;
 
+/** The one quotable who/what/where sentence. Opens the home, menu and landing pages and /llms.txt. */
+export const FACT_LINE =
+  "Fozzie's Dining is a chef-driven fine dining restaurant in Cookeville, Tennessee, where Chef Jason Head serves a seasonal dinner menu of Southern cooking with Cajun, Mediterranean, Asian and Hispanic influences.";
+
 export const RESTAURANT_ID = `${SITE_URL}/#restaurant`;
 
 /** Full Restaurant node. Rendered on the home page; other pages reference it by @id. */

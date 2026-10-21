@@ -1,6 +1,8 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { BreadcrumbJsonLd, LANDING_LINK_CLASS as L, LandingFaq } from "@/components/landing/LandingFaq";
+import { FINE_DINING_FAQ } from "@/lib/faqs";
+import { FACT_LINE } from "@/lib/restaurant";
 
 export const metadata: Metadata = {
   title: "Best Fine Dining in Cookeville, TN",
@@ -29,40 +31,6 @@ export const metadata: Metadata = {
   },
 };
 
-const FAQ = [
-  {
-    question: "What kind of food does Fozzie's Dining serve?",
-    answer:
-      "A chef-driven seasonal menu that blends Southern cooking with Cajun, Mediterranean, Asian and Hispanic influences: dishes like Nana's Shrimp & Grits, B & C's Salmon with a hot honey citrus glaze, Thai Curry Crawfish Étouffée and Hallie Kay's Filet Mignon.",
-  },
-  {
-    question: "What are the hours?",
-    answer: "Dinner is served Tuesday through Saturday, 5:00–9:00 PM. Happy hour is Tuesday through Saturday, 4:00–6:00 PM.",
-  },
-  {
-    question: "Do I need a reservation?",
-    answer:
-      "Reservations are recommended, especially on weekends and for special occasions. Send a request through the reservation form on our home page and the team will confirm by email, or call +1 (205) 873-0686.",
-  },
-  {
-    question: "Is there a dress code?",
-    answer: "Smart casual. Jackets are welcome but not required.",
-  },
-  {
-    question: "Are there gluten-free options?",
-    answer: "Yes. Gluten-free options are available, and many dishes are marked gluten-free on the menu.",
-  },
-  {
-    question: "Where is Fozzie's Dining?",
-    answer:
-      "Fozzie's Dining is in Cookeville, Tennessee. For directions or questions before your visit, call +1 (205) 873-0686 or email fozziesdining@gmail.com.",
-  },
-  {
-    question: "Who is the chef at Fozzie's Dining?",
-    answer:
-      "Chef Jason Head, the chef and owner. He was born and raised in Birmingham, Alabama, and in 2021 founded GameDay Gourmet, a catering company.",
-  },
-];
 
 export default function BestFineDiningCookevillePage() {
   return (
@@ -72,9 +40,7 @@ export default function BestFineDiningCookevillePage() {
       <section className="mx-auto max-w-4xl text-center">
         <h1 className="font-serif text-4xl text-charcoal sm:text-5xl">Best Fine Dining in Cookeville, TN</h1>
         <p className="mx-auto mt-4 max-w-3xl text-softgray leading-7">
-          Fozzie&apos;s Dining is a chef-driven fine dining restaurant in Cookeville, Tennessee. Chef Jason Head cooks
-          a seasonal menu that draws on Southern, Cajun, Mediterranean, Asian and Hispanic traditions, served at
-          candlelit, white-tablecloth tables Tuesday through Saturday, 5:00–9:00 PM.
+          {FACT_LINE} Dinner is served at candlelit, white-tablecloth tables Tuesday through Saturday, 5:00–9:00 PM.
         </p>
         <div className="mt-8">
           <a
@@ -174,7 +140,7 @@ export default function BestFineDiningCookevillePage() {
         </p>
       </section>
 
-      <LandingFaq heading="Fine Dining at Fozzie's: Common Questions" items={FAQ} />
+      <LandingFaq heading="Fine Dining at Fozzie's: Common Questions" items={FINE_DINING_FAQ} />
 
       <section className="mx-auto mt-8 max-w-4xl border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
         <h2 className="font-serif text-2xl text-charcoal sm:text-3xl">Plan Your Evening at Fozzie&apos;s</h2>

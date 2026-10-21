@@ -2,6 +2,7 @@ import MenuRender from "@/components/menu/MenuRender";
 import { getSettingValue } from "@/lib/settings";
 import { buildMenuPdfPublicUrl, type MenuPdfSetting } from "@/lib/menuPdf";
 import { getDefaultMenuPayload, parseMenuPayload } from "@/lib/menuSettings";
+import { FACT_LINE } from "@/lib/restaurant";
 import { SITE_URL } from "@/lib/siteUrl";
 import type { Metadata } from "next";
 
@@ -85,7 +86,7 @@ export default async function MenuPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(menuJsonLd) }} />
-      <MenuRender menuMeta={menuMeta} menuSections={menuSections} footerBlock={menuFooterBlock} pdfUrl={menuPdfPath} />
+      <MenuRender menuMeta={menuMeta} menuSections={menuSections} footerBlock={menuFooterBlock} pdfUrl={menuPdfPath} intro={FACT_LINE} />
     </>
   );
 }

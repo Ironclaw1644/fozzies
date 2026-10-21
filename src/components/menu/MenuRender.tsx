@@ -17,6 +17,8 @@ type MenuRenderProps = {
   footerBlock?: MenuFooterBlock | null;
   pdfUrl?: string;
   previewMode?: boolean;
+  /** Fact sentence shown under the subtitle on the public /menu page. */
+  intro?: string;
 };
 
 function normalizeMeta(meta?: Partial<MenuMeta> | null): MenuMeta {
@@ -127,7 +129,7 @@ function Section({
   );
 }
 
-export default function MenuRender({ menuMeta, menuSections, footerBlock, pdfUrl, previewMode = false }: MenuRenderProps) {
+export default function MenuRender({ menuMeta, menuSections, footerBlock, pdfUrl, previewMode = false, intro }: MenuRenderProps) {
   const resolvedMeta = normalizeMeta(menuMeta);
   const resolvedSections = normalizeSections(menuSections);
   const resolvedPdfUrl = typeof pdfUrl === "string" && pdfUrl.trim() ? pdfUrl : "#";
@@ -177,6 +179,7 @@ export default function MenuRender({ menuMeta, menuSections, footerBlock, pdfUrl
           </div>
 
           <div className="-mt-14 text-xs leading-tight tracking-[0.22em] text-softgray">{resolvedMeta.subtitle}</div>
+          {intro ? <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-softgray">{intro}</p> : null}
 
           <div className="mx-auto mt-6 h-px w-64 bg-gold/60" />
 

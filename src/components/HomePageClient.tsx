@@ -4,6 +4,7 @@ import Image, { getImageProps } from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import ReserveForm from "@/components/ReserveForm";
 import { trackEvent } from "@/lib/analytics";
+import { FACT_LINE } from "@/lib/restaurant";
 import { track } from "@/lib/trackClient";
 
 type AnnouncementItem = {
@@ -248,6 +249,7 @@ export default function HomePage({ initialBanner = null }: { initialBanner?: Ban
             <p className="mx-auto mt-6 max-w-xl text-base font-light leading-relaxed tracking-[0.06em] text-white/85 sm:text-lg">
               Crafted for memorable evenings, celebrations, and the moments worth dressing up for.
             </p>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-white/80">{FACT_LINE}</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
                 href="#reserve"

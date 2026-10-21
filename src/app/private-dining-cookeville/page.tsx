@@ -1,6 +1,8 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { BreadcrumbJsonLd, LANDING_LINK_CLASS as L, LandingFaq } from "@/components/landing/LandingFaq";
+import { PRIVATE_DINING_FAQ } from "@/lib/faqs";
+import { FACT_LINE } from "@/lib/restaurant";
 
 const DESCRIPTION =
   "Host a group dinner or celebration at Fozzie's Dining in Cookeville, TN: a chef-driven seasonal menu, parties of 10+ by phone or email, and catering.";
@@ -29,35 +31,6 @@ export const metadata: Metadata = {
   },
 };
 
-const FAQ = [
-  {
-    question: "How do I book a dinner for a large group?",
-    answer:
-      "For parties of 10 or more, please call +1 (205) 873-0686 or email fozziesdining@gmail.com. Smaller groups can use the reservation request form on our home page, and the team will confirm by email.",
-  },
-  {
-    question: "Can Fozzie's Dining host a rehearsal dinner?",
-    answer:
-      "Rehearsal dinners, business dinners and other celebrations can be arranged. For 10 or more guests, call +1 (205) 873-0686 or email fozziesdining@gmail.com with your date, guest count and any menu requests.",
-  },
-  {
-    question: "Does Fozzie's Dining cater offsite events?",
-    answer: "Please call or email with requests for offsite events.",
-  },
-  {
-    question: "What are the hours?",
-    answer: "Dinner is served Tuesday through Saturday, 5:00–9:00 PM. Happy hour is Tuesday through Saturday, 4:00–6:00 PM.",
-  },
-  {
-    question: "What's on the menu?",
-    answer:
-      "A seasonal, chef-driven menu with starters like crab cakes and Waka Waka Shrimp, mains like Nana's Shrimp & Grits, Smoky Mountain Surf & Turf and Hallie Kay's Filet Mignon, and desserts like crème brûlée. Gluten-free options are available.",
-  },
-  {
-    question: "Is there a dress code?",
-    answer: "Smart casual. Jackets are welcome but not required.",
-  },
-];
 
 export default function PrivateDiningCookevillePage() {
   return (
@@ -67,7 +40,7 @@ export default function PrivateDiningCookevillePage() {
       <section className="mx-auto max-w-4xl text-center">
         <h1 className="font-serif text-4xl text-charcoal sm:text-5xl">Private Dining in Cookeville, TN</h1>
         <p className="mx-auto mt-4 max-w-3xl text-softgray leading-7">
-          For a group dinner or celebration in Cookeville, call Fozzie&apos;s Dining at +1 (205) 873-0686 or email
+          {FACT_LINE} For a group dinner or celebration, call +1 (205) 873-0686 or email
           fozziesdining@gmail.com: parties of 10 or more are arranged by phone or email, and smaller groups can
           request a table online. It suits rehearsal dinners, business occasions and personal celebrations.
         </p>
@@ -173,7 +146,7 @@ export default function PrivateDiningCookevillePage() {
         </p>
       </section>
 
-      <LandingFaq heading="Group and Private Dining: Common Questions" items={FAQ} />
+      <LandingFaq heading="Group and Private Dining: Common Questions" items={PRIVATE_DINING_FAQ} />
 
       <section className="mx-auto mt-8 max-w-4xl border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
         <h2 className="font-serif text-2xl text-charcoal sm:text-3xl">Plan Your Private Dining Experience</h2>

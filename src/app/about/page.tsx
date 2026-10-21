@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { LandingFaq } from "@/components/landing/LandingFaq";
+import { ABOUT_FAQ } from "@/lib/faqs";
 import { SITE_URL } from "@/lib/siteUrl";
 
 const ABOUT_DESCRIPTION =
@@ -48,28 +49,6 @@ const chefJsonLd = {
 // Also answers the brand mix-up seen on Google (2026-09-26): its knowledge panel
 // for "fozzies" showed Fozzie's Sandwich Emporium (MO), and the "fozzies
 // cookeville" map pack showed Fozzy's Bar & Grill.
-const ABOUT_FAQ = [
-  {
-    question: "Who owns Fozzie's Dining?",
-    answer:
-      "Chef Jason Head is the chef and owner of Fozzie's Dining in Cookeville, Tennessee. He was born and raised in Birmingham, Alabama, and in 2021 founded GameDay Gourmet, a catering company.",
-  },
-  {
-    question: "Why is it called Fozzie's?",
-    answer:
-      "In college, friends called Jason \u201cFozzie\u201d for his bright red beard and his knack for making people smile. The name stuck.",
-  },
-  {
-    question: "Is Fozzie's Dining the same as Fozzie's Sandwich Emporium or Fozzy's Bar & Grill?",
-    answer:
-      "No. Fozzie's Dining is Chef Jason Head's restaurant in Cookeville, Tennessee. Fozzie's Sandwich Emporium in Missouri and Fozzy's Bar & Grill in Franklin and Spring Hill, Tennessee, are separate restaurants.",
-  },
-  {
-    question: "What kind of food does Chef Jason cook?",
-    answer:
-      "A seasonal menu that blends classic Southern cooking with Cajun, Mediterranean, Asian and Hispanic influences, from Nana's Shrimp & Grits to a Thai Curry Crawfish Étouffée.",
-  },
-];
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
