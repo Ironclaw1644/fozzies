@@ -52,6 +52,16 @@ const FAQ = [
     question: "Are there gluten-free options?",
     answer: "Yes. Gluten-free options are available, and many dishes are marked gluten-free on the menu.",
   },
+  {
+    question: "Where is Fozzie's Dining?",
+    answer:
+      "Fozzie's Dining is in Cookeville, Tennessee. For directions or questions before your visit, call +1 (205) 873-0686 or email fozziesdining@gmail.com.",
+  },
+  {
+    question: "Who is the chef at Fozzie's Dining?",
+    answer:
+      "Chef Jason Head, the chef and owner. He was born and raised in Birmingham, Alabama, and in 2021 founded GameDay Gourmet, a catering company.",
+  },
 ];
 
 export default function BestFineDiningCookevillePage() {
@@ -62,9 +72,9 @@ export default function BestFineDiningCookevillePage() {
       <section className="mx-auto max-w-4xl text-center">
         <h1 className="font-serif text-4xl text-charcoal sm:text-5xl">Best Fine Dining in Cookeville, TN</h1>
         <p className="mx-auto mt-4 max-w-3xl text-softgray leading-7">
-          Fozzie&apos;s Dining brings together refined Southern hospitality, confident technique, and an atmosphere
-          designed for evenings that deserve more than ordinary. It&apos;s the restaurant of Chef Jason Head, cooking a
-          seasonal menu that draws on Southern, Cajun, Mediterranean, Asian and Hispanic traditions.
+          Fozzie&apos;s Dining is a chef-driven fine dining restaurant in Cookeville, Tennessee. Chef Jason Head cooks
+          a seasonal menu that draws on Southern, Cajun, Mediterranean, Asian and Hispanic traditions, served at
+          candlelit, white-tablecloth tables Tuesday through Saturday, 5:00–9:00 PM.
         </p>
         <div className="mt-8">
           <a

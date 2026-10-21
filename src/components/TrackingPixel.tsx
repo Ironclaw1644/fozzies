@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { track } from "@/lib/trackClient";
+import { classifySource } from "@/lib/sourceChannel";
+import { FIRST_SOURCE_KEY, track } from "@/lib/trackClient";
 
 const VISITOR_KEY = "fozzies_visitor_id";
 
@@ -38,6 +39,21 @@ function getReferrer() {
   return value.slice(0, 1000);
 }
 
+// First touch: the first real source (search, AI assistant, social) this browser
+// arrived from. A "direct" first visit is replaced by a later real source.
+// Conversions carry it in meta.first_source (lib/trackClient.ts).
+function rememberFirstSource(referrer: string, utmSource: string | null) {
+  try {
+    const channel = classifySource({ referrer, utmSource, ownHost: window.location.hostname });
+    const existing = window.localStorage.getItem(FIRST_SOURCE_KEY);
+    if (!existing || (existing === "direct" && channel !== "direct")) {
+      window.localStorage.setItem(FIRST_SOURCE_KEY, channel);
+    }
+  } catch {
+    // Storage blocked (private mode): skip first-touch, page views still record the referrer.
+  }
+}
+
 export default function TrackingPixel() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -47,6 +63,7 @@ export default function TrackingPixel() {
     const query = params.toString();
     const pagePath = query ? `${pathname}?${query}` : pathname;
     const userAgent = typeof navigator !== "undefined" ? navigator.userAgent || "" : "";
+    rememberFirstSource(getReferrer(), params.get("utm_source"));
 
     track("page_view", {
       page_path: pagePath.slice(0, 500),

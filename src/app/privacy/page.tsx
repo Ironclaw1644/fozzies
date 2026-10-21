@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy",
-  description: "Read the Fozzie's Dining privacy policy for reservations, newsletter, applications, and analytics.",
+  title: "Privacy Policy",
+  description:
+      "How Fozzie's Dining in Cookeville, TN handles what you share through reservation requests, the email newsletter, job applications and site analytics.",
   alternates: {
     canonical: "/privacy",
   },
   openGraph: {
-    title: "Privacy | Fozzie's Dining",
-    description: "Read the Fozzie's Dining privacy policy for reservations, newsletter, applications, and analytics.",
+    title: "Privacy Policy | Fozzie's Dining",
+    description:
+      "How Fozzie's Dining in Cookeville, TN handles what you share through reservation requests, the email newsletter, job applications and site analytics.",
     url: "/privacy",
     images: [
       {
@@ -20,8 +22,9 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Privacy | Fozzie's Dining",
-    description: "Read the Fozzie's Dining privacy policy for reservations, newsletter, applications, and analytics.",
+    title: "Privacy Policy | Fozzie's Dining",
+    description:
+      "How Fozzie's Dining in Cookeville, TN handles what you share through reservation requests, the email newsletter, job applications and site analytics.",
     images: ["/og-image.jpg"],
   },
 };

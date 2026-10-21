@@ -50,6 +50,16 @@ const FAQ = [
       "Use the reservation request form on our home page with your date, time and party size, and the team will confirm by email. You can also call +1 (205) 873-0686. Reservations are recommended, especially on weekends and for special occasions.",
   },
   {
+    question: "Is there a bar for a drink before dinner?",
+    answer:
+      "Yes. The bar pours craft cocktails, and happy hour runs Tuesday through Saturday, 4:00–6:00 PM, before dinner service starts at 5:00.",
+  },
+  {
+    question: "What desserts are on the menu?",
+    answer:
+      "Desserts include crème brûlée, a brownie sundae with salted caramel ice cream, Edie's Mousse of the Week and the chef's seasonal bread pudding.",
+  },
+  {
     question: "Can we note an allergy ahead of time?",
     answer:
       "Yes. The reservation request has a notes field for allergies, celebrations and seating preferences. Gluten-free options are available, and many dishes are marked gluten-free on the menu.",
@@ -64,8 +74,9 @@ export default function RomanticDinnerCookevillePage() {
       <section className="mx-auto max-w-4xl text-center">
         <h1 className="font-serif text-4xl text-charcoal sm:text-5xl">Romantic Dinner in Cookeville, TN</h1>
         <p className="mx-auto mt-4 max-w-3xl text-softgray leading-7">
-          For anniversaries, first dates, and quiet celebrations, Fozzie&apos;s Dining offers a setting where
-          conversation lingers and every course feels intentional.
+          For a romantic dinner in Cookeville, Fozzie&apos;s Dining sets candlelit, white-tablecloth tables, keeps an
+          unhurried pace and serves Chef Jason Head&apos;s seasonal menu, Tuesday through Saturday, 5:00–9:00 PM.
+          It&apos;s made for anniversaries, first dates and quiet celebrations.
         </p>
         <div className="mt-8">
           <a

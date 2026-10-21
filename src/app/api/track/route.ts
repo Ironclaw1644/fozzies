@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { classifySource } from "@/lib/sourceChannel";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 export const runtime = "nodejs";
@@ -76,12 +77,18 @@ export async function POST(req: Request) {
       meta = body.meta as Record<string, unknown>;
     }
 
+    // Classified on the server so every row carries the same buckets
+    // (AI assistants included) without trusting the client to do it.
+    const referrer = toText(body.referrer, 1000);
+    const utmSource = toText(body.utm_source, 120);
+    meta = { ...meta, source_channel: classifySource({ referrer, utmSource, ownHost: new URL(req.url).hostname }) };
+
     const supabase = supabaseAdmin();
     const { error } = await supabase.schema("fozzies").from("analytics_events").insert({
       event_type: eventType,
       page_path: toText(body.page_path, 500),
-      referrer: toText(body.referrer, 1000),
-      utm_source: toText(body.utm_source, 120),
+      referrer,
+      utm_source: utmSource,
       utm_medium: toText(body.utm_medium, 120),
       utm_campaign: toText(body.utm_campaign, 160),
       utm_term: toText(body.utm_term, 160),

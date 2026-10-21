@@ -2,21 +2,26 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { getDefaultContactPayload, isAllowedContactHref, parseContactPayload } from "@/lib/contactSettings";
 import { GOLD_UNDERLINE_LINK_CLASS } from "@/lib/linkStyles";
+import { BreadcrumbJsonLd } from "@/components/landing/LandingFaq";
+import { RESTAURANT_ID } from "@/lib/restaurant";
 import { getSettingValue } from "@/lib/settings";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export const runtime = "nodejs";
 // Static with background refresh; admin saves call revalidatePath() for instant updates.
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: "Contact Fozzie's Dining in Cookeville, Tennessee for private dining inquiries, media, and general questions.",
+  title: "Contact & Reservations in Cookeville, TN",
+  description:
+      "Contact Fozzie's Dining in Cookeville, TN: call +1 (205) 873-0686 or email for reservations, parties of 10 or more, offsite catering and general questions.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact | Fozzie's Dining",
-    description: "Contact Fozzie's Dining in Cookeville, Tennessee for private dining inquiries, media, and general questions.",
+    title: "Contact & Reservations in Cookeville, TN | Fozzie's Dining",
+    description:
+      "Contact Fozzie's Dining in Cookeville, TN: call +1 (205) 873-0686 or email for reservations, parties of 10 or more, offsite catering and general questions.",
     url: "/contact",
     images: [
       {
@@ -26,10 +31,19 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Contact | Fozzie's Dining",
-    description: "Contact Fozzie's Dining in Cookeville, Tennessee for private dining inquiries, media, and general questions.",
+    title: "Contact & Reservations in Cookeville, TN | Fozzie's Dining",
+    description:
+      "Contact Fozzie's Dining in Cookeville, TN: call +1 (205) 873-0686 or email for reservations, parties of 10 or more, offsite catering and general questions.",
     images: ["/brand/logo_all_1_hq.png"],
   },
+};
+
+const contactJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  url: `${SITE_URL}/contact`,
+  name: "Contact Fozzie's Dining",
+  about: { "@id": RESTAURANT_ID },
 };
 
 export default async function ContactPage() {
@@ -43,6 +57,8 @@ export default async function ContactPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }} />
+      <BreadcrumbJsonLd name="Contact" path="/contact" />
       <h1 className="font-serif text-4xl text-charcoal">
         {/* The admin default title is just "Contact"; give the page a specific H1. */}
         {contactPayload.title.trim().toLowerCase() === "contact"

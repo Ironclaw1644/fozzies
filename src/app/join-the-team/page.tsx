@@ -2,14 +2,16 @@ import JoinTeamForm from "@/components/JoinTeamForm";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Join The Team",
-  description: "Apply to join the team at Fozzie's Dining in Cookeville, TN.",
+  title: "Restaurant Jobs in Cookeville, TN",
+  description:
+      "Apply to work at Fozzie's Dining, Chef Jason Head's chef-driven restaurant in Cookeville, Tennessee. Fill out the short online application to get started.",
   alternates: {
     canonical: "/join-the-team",
   },
   openGraph: {
-    title: "Join The Team | Fozzie's Dining",
-    description: "Apply to join the team at Fozzie's Dining in Cookeville, TN.",
+    title: "Restaurant Jobs in Cookeville, TN | Fozzie's Dining",
+    description:
+      "Apply to work at Fozzie's Dining, Chef Jason Head's chef-driven restaurant in Cookeville, Tennessee. Fill out the short online application to get started.",
     url: "/join-the-team",
     images: [
       {
@@ -19,8 +21,9 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Join The Team | Fozzie's Dining",
-    description: "Apply to join the team at Fozzie's Dining in Cookeville, TN.",
+    title: "Restaurant Jobs in Cookeville, TN | Fozzie's Dining",
+    description:
+      "Apply to work at Fozzie's Dining, Chef Jason Head's chef-driven restaurant in Cookeville, Tennessee. Fill out the short online application to get started.",
     images: ["/brand/logo_all_1_hq.png"],
   },
 };

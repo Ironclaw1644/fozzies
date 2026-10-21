@@ -12,8 +12,20 @@ type TrackPayload = {
   meta?: Record<string, unknown>;
 };
 
+export const FIRST_SOURCE_KEY = "fozzies_first_source";
+
+function firstSource() {
+  try {
+    return window.localStorage.getItem(FIRST_SOURCE_KEY);
+  } catch {
+    return null;
+  }
+}
+
 export async function track(event_type: string, payload: TrackPayload = {}) {
   if (typeof window === "undefined") return;
+  const first = firstSource();
+  if (first) payload = { ...payload, meta: { ...payload.meta, first_source: first } };
 
   try {
     await fetch("/api/track", {

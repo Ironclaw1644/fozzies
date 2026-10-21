@@ -36,6 +36,11 @@ const FAQ = [
       "For parties of 10 or more, please call +1 (205) 873-0686 or email fozziesdining@gmail.com. Smaller groups can use the reservation request form on our home page, and the team will confirm by email.",
   },
   {
+    question: "Can Fozzie's Dining host a rehearsal dinner?",
+    answer:
+      "Rehearsal dinners, business dinners and other celebrations can be arranged. For 10 or more guests, call +1 (205) 873-0686 or email fozziesdining@gmail.com with your date, guest count and any menu requests.",
+  },
+  {
     question: "Does Fozzie's Dining cater offsite events?",
     answer: "Please call or email with requests for offsite events.",
   },
@@ -62,8 +67,9 @@ export default function PrivateDiningCookevillePage() {
       <section className="mx-auto max-w-4xl text-center">
         <h1 className="font-serif text-4xl text-charcoal sm:text-5xl">Private Dining in Cookeville, TN</h1>
         <p className="mx-auto mt-4 max-w-3xl text-softgray leading-7">
-          Fozzie&apos;s Dining provides a refined setting for rehearsal dinners, business occasions, and personal
-          celebrations that call for exceptional food and attentive service.
+          For a group dinner or celebration in Cookeville, call Fozzie&apos;s Dining at +1 (205) 873-0686 or email
+          fozziesdining@gmail.com: parties of 10 or more are arranged by phone or email, and smaller groups can
+          request a table online. It suits rehearsal dinners, business occasions and personal celebrations.
         </p>
         <div className="mt-8">
           <a

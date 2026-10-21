@@ -13,13 +13,15 @@ const MENU_DESCRIPTION =
   "Explore Fozzie's seasonal, chef-driven dinner menu in Cookeville, TN: small plates, mains and house desserts. View it online or download the PDF.";
 
 export const metadata: Metadata = {
-  title: "Dinner Menu in Cookeville, TN",
+  // Leads with the brand: "fozzie's menu" is the page's biggest query, and other
+  // Fozzie's restaurants (BBQ, sandwich shops) compete for it.
+  title: { absolute: "Fozzie's Dining Menu | Dinner in Cookeville, TN" },
   description: MENU_DESCRIPTION,
   alternates: {
     canonical: "/menu",
   },
   openGraph: {
-    title: "Dinner Menu in Cookeville, TN | Fozzie's Dining",
+    title: "Fozzie's Dining Menu | Dinner in Cookeville, TN",
     description: MENU_DESCRIPTION,
     url: "/menu",
     images: [
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Dinner Menu in Cookeville, TN | Fozzie's Dining",
+    title: "Fozzie's Dining Menu | Dinner in Cookeville, TN",
     description: MENU_DESCRIPTION,
     images: ["/brand/logo_all_1_hq.png"],
   },

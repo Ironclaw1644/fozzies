@@ -1,5 +1,6 @@
 import Link from "next/link";
 import UtmLinkBuilder from "@/components/admin/UtmLinkBuilder";
+import { CHANNEL_LABELS, classifySource, isAiChannel, type SourceChannel } from "@/lib/sourceChannel";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 export const runtime = "nodejs";
@@ -105,7 +106,19 @@ function formatDeviceLabel(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
+/** Rows since 2026-10-21 carry meta.source_channel; older rows are classified from referrer/UTM. */
+function eventChannel(event: AnalyticsEventRow): SourceChannel {
+  const tagged = event.meta?.source_channel;
+  if (typeof tagged === "string" && tagged in CHANNEL_LABELS) return tagged as SourceChannel;
+  return classifySource({ referrer: event.referrer, utmSource: event.utm_source });
+}
+
 function reservationSourceLabel(event: AnalyticsEventRow) {
+  // First touch (how this browser first found us) beats the referrer of the booking page itself.
+  const first = event.meta?.first_source;
+  if (typeof first === "string" && first in CHANNEL_LABELS && first !== "direct") {
+    return `${CHANNEL_LABELS[first as SourceChannel]} (first visit)`;
+  }
   if (event.utm_source) {
     return event.utm_medium ? `${event.utm_source} / ${event.utm_medium}` : event.utm_source;
   }
@@ -247,6 +260,7 @@ export default async function AdminActivityPage({
   const referrerMap = new Map<string, number>();
   const deviceMap = new Map<string, number>();
   const cityVisitorsMap = new Map<string, Set<string>>();
+  const channelVisitorsMap = new Map<SourceChannel, Set<string>>();
 
   for (const event of summaryEvents) {
     if (event.event_type === "page_view" && event.page_path) {
@@ -271,6 +285,13 @@ export default async function AdminActivityPage({
     const domain = getReferrerDomain(event.referrer);
     if (domain) {
       referrerMap.set(domain, (referrerMap.get(domain) || 0) + 1);
+    }
+
+    if (event.event_type === "page_view" && event.visitor_id) {
+      const channel = eventChannel(event);
+      const set = channelVisitorsMap.get(channel) || new Set<string>();
+      set.add(event.visitor_id);
+      channelVisitorsMap.set(channel, set);
     }
 
     if (event.event_type === "page_view") {
@@ -300,6 +321,15 @@ export default async function AdminActivityPage({
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10)
     .map(([domain, count]) => [domain, String(count)]);
+
+  const channelRows = Array.from(channelVisitorsMap.entries())
+    .sort((a, b) => b[1].size - a[1].size)
+    .map(([channel, visitors]) => [CHANNEL_LABELS[channel], String(visitors.size)]);
+  const aiVisitors = new Set(
+    Array.from(channelVisitorsMap.entries())
+      .filter(([channel]) => isAiChannel(channel))
+      .flatMap(([, visitors]) => Array.from(visitors))
+  ).size;
 
   const conversionRows = Array.from(conversionMap.entries())
     .sort((a, b) => b[1] - a[1])
@@ -519,6 +549,15 @@ export default async function AdminActivityPage({
                 </div>
               )}
             </section>
+          </div>
+
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            <DataTable
+              title={`Visitors by Source${aiVisitors > 0 ? ` · ${aiVisitors} from AI assistants` : ""}`}
+              headers={["Source", "Visitors"]}
+              rows={channelRows}
+              empty="No visits recorded yet."
+            />
           </div>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
