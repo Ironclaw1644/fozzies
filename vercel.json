@@ -1,3 +1,6 @@
 {
-  "crons": [{ "path": "/api/cron/serp-gsc", "schedule": "0 11 * * *" }]
+  "crons": [
+    { "path": "/api/cron/serp-gsc", "schedule": "0 11 * * *" },
+    { "path": "/api/cron/serp-apify", "schedule": "30 10 * * 2" }
+  ]
 }

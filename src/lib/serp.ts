@@ -5,7 +5,28 @@ export const SERP_DEPTH = 20;
 // Deepest position the tracker stores (GSC averages and page 3–10 scrapes can exceed SERP_DEPTH).
 export const MAX_POSITION = 100;
 
-export const SERP_SOURCES = ["manual", "websearch", "agent", "gsc", "startpage", "google"] as const;
+export const SERP_SOURCES = ["manual", "websearch", "agent", "gsc", "startpage", "google", "apify"] as const;
+
+/**
+ * Keywords the weekly Apify cron checks (lib/serpSync.ts). Capped at 12 because
+ * the Apify credit is shared. Each must also be an active row in seo_keywords.
+ * Chosen 2026-10-21 from GSC impressions and the 09-26 live check: the money
+ * terms plus the brand terms Google actually shows us for.
+ */
+export const WEEKLY_SERP_KEYWORDS: readonly string[] = [
+  "fine dining cookeville tn",
+  "fine dining cookeville",
+  "fozzies",
+  "fozzie's menu",
+  "fancy restaurants cookeville tn",
+  "best restaurants cookeville tn",
+  "upscale restaurant cookeville tn",
+  "private events cookeville restaurant",
+  "group dining cookeville",
+  "romantic restaurant cookeville",
+  "anniversary dinner cookeville",
+  "date night restaurants cookeville",
+];
 export type SerpSource = (typeof SERP_SOURCES)[number];
 
 export function isSerpSource(v: string): v is SerpSource {
@@ -166,4 +187,15 @@ export function summarizeKeyword(checks: SerpCheck[]) {
     latestRank !== null && prevRank !== null ? Math.round((prevRank - latestRank) * 10) / 10 : null;
 
   return { latest, previous, delta, history: sorted.slice(0, 12).reverse() };
+}
+
+/**
+ * Live rank (any scraped/manual source) and the Search Console average are
+ * different measurements, so the tracker shows them side by side: change and
+ * trend follow live checks only, and GSC fills its own columns.
+ */
+export function summarizeBySource(checks: SerpCheck[]) {
+  const live = summarizeKeyword(checks.filter((c) => c.source !== "gsc"));
+  const gsc = summarizeKeyword(checks.filter((c) => c.source === "gsc"));
+  return { live: live.latest, liveDelta: live.delta, history: live.history, gsc: gsc.latest, gscDelta: gsc.delta };
 }
