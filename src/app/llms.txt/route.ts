@@ -14,13 +14,17 @@ export async function GET() {
   const sections = await loadMenuSections();
   const r = RESTAURANT;
   const menu = sections
-    .filter((s) => s.items.length > 0)
-    .map((s) => `- ${s.title}: ${s.items.map((i) => i.name.trim()).join("; ")}`)
-    .join("\n");
+    ? sections
+        .filter((s) => s.items.length > 0)
+        .map((s) => `- ${s.title}: ${s.items.map((i) => i.name.trim()).join("; ")}`)
+        .join("\n")
+    : `The menu changes with the seasons; see ${SITE_URL}/menu`;
+  const influences = r.cuisines.filter((c) => c !== "Southern");
+  const influenceList = `${influences.slice(0, -1).join(", ")} and ${influences[influences.length - 1]}`;
 
   const body = `# ${r.name}
 
-> ${r.name} is a chef-driven fine dining restaurant in ${r.city}, ${r.regionName}, from Chef ${r.chef}. The seasonal dinner menu blends Southern cooking with ${r.cuisines.filter((c) => c !== "Southern").join(", ")} influences.
+> ${r.name} is a chef-driven fine dining restaurant in ${r.city}, ${r.regionName}, from Chef ${r.chef}. The seasonal dinner menu blends Southern cooking with ${influenceList} influences.
 
 ## Key facts
 - Location: ${r.city}, ${r.regionName} (United States)

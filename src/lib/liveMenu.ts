@@ -1,10 +1,14 @@
-import { getDefaultMenuPayload, parseMenuPayload } from "@/lib/menuSettings";
+import { parseMenuPayload } from "@/lib/menuSettings";
 import { getSettingValue } from "@/lib/settings";
 import type { MenuSection } from "@/app/menu/menuData";
 
-/** The menu as /menu shows it: the admin-edited copy, or the static default. */
-export async function loadMenuSections(): Promise<MenuSection[]> {
+/**
+ * The admin-edited menu as /menu shows it, or null when it can't be read.
+ * Unlike /menu, callers get no fallback to the static menuData defaults: those
+ * are an older menu (e.g. "Spanish Salad"), fine as a page placeholder but
+ * wrong to hand to AI assistants as fact.
+ */
+export async function loadMenuSections(): Promise<MenuSection[] | null> {
   const stored = await getSettingValue<unknown>("menu_html");
-  const parsed = stored == null ? null : parseMenuPayload(stored);
-  return parsed?.sections ?? getDefaultMenuPayload().sections;
+  return stored == null ? null : (parseMenuPayload(stored)?.sections ?? null);
 }
