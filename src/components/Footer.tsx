@@ -7,6 +7,7 @@ const EXPLORE_LINKS = [
   { label: "Home", href: "/" },
   { label: "Menu", href: "/menu" },
   { label: "About", href: "/about" },
+  { label: "The Book: People Matter", href: "/people-matter" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
   { label: "Join The Team", href: "/join-the-team" },

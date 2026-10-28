@@ -1,5 +1,6 @@
 import { loadMenuSections } from "@/lib/liveMenu";
 import { ABOUT_FAQ, FINE_DINING_FAQ, PRIVATE_DINING_FAQ, ROMANTIC_DINNER_FAQ, type FaqEntry } from "@/lib/faqs";
+import { BOOK, BOOK_FACT_LINE, BOOK_FAQ, BOOK_URL } from "@/lib/book";
 import { FACT_LINE, RESTAURANT } from "@/lib/restaurant";
 import { SITE_URL } from "@/lib/siteUrl";
 
@@ -40,6 +41,8 @@ export async function GET() {
         .join("\n")
     : `The menu changes with the seasons; see ${SITE_URL}/menu`;
   const liveDishes = sections ? new Set(sections.flatMap((s) => s.items.map((i) => norm(i.name)))) : null;
+  const formats = BOOK.formats.map((f) => `${f.label} $${f.price} (${f.url})`).join("; ");
+  const bookFaq = BOOK_FAQ.map((f) => `### ${f.question}\n${f.answer}`).join("\n\n");
   const faq = commonQuestions(liveDishes)
     .map((f) => `### ${f.question}\n${f.answer}`)
     .join("\n\n");
@@ -66,10 +69,21 @@ ${menu}
 ## Common questions
 ${faq}
 
+## Chef Jason Head's memoir: People Matter
+${BOOK_FACT_LINE}
+- Title: ${BOOK.fullTitle}
+- Author: ${BOOK.author}
+- Published: ${BOOK.datePublishedDisplay} (${BOOK.publisher.toLowerCase()}), ${BOOK.pages} pages (large-print paperback)
+- Buy on Amazon: ${formats}
+- Book page: ${BOOK_URL}
+
+${bookFaq}
+
 ## Pages
 - [Home and reservations](${SITE_URL}/)
 - [Dinner menu](${SITE_URL}/menu)
 - [About Chef Jason Head](${SITE_URL}/about)
+- [People Matter, Jason Head's memoir](${BOOK_URL})
 - [Fine dining in Cookeville](${SITE_URL}/best-fine-dining-cookeville)
 - [Romantic dinner in Cookeville](${SITE_URL}/romantic-dinner-cookeville)
 - [Private and group dining in Cookeville](${SITE_URL}/private-dining-cookeville)

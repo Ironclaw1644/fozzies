@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { LandingFaq } from "@/components/landing/LandingFaq";
 import { ABOUT_FAQ } from "@/lib/faqs";
+import { BOOK, BOOK_URL } from "@/lib/book";
 import { SITE_URL } from "@/lib/siteUrl";
 
 const ABOUT_DESCRIPTION =
@@ -43,6 +44,7 @@ const chefJsonLd = {
   birthPlace: { "@type": "Place", name: "Birmingham, Alabama" },
   alumniOf: { "@type": "CollegeOrUniversity", name: "University of Mississippi" },
   worksFor: { "@type": "Restaurant", "@id": `${SITE_URL}/#restaurant`, name: "Fozzie's Dining", url: SITE_URL },
+  subjectOf: { "@type": "Book", "@id": `${BOOK_URL}#book`, name: BOOK.fullTitle, url: BOOK_URL },
   knowsAbout: ["Southern cuisine", "Mediterranean cuisine", "Asian cuisine", "Cajun cuisine", "Hispanic cuisine", "Catering"],
 };
 
@@ -157,6 +159,17 @@ export default function AboutPage() {
             private dining for a larger group
           </a>
           .
+        </p>
+      </div>
+
+      <div className="mt-16 max-w-3xl border-l-2 border-warmgold pl-6 text-charcoal leading-8">
+        <p className="text-sm uppercase tracking-widest text-softgray">The Book</p>
+        <p className="mt-2">
+          Jason tells the rest of his story, including the fall, prison and the long road back, in his memoir{" "}
+          <a href={BOOK.path} className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            <em>People Matter: A Memoir of Love, Loss, Redemption, and Leadership</em>
+          </a>
+          , available in paperback, hardcover and Kindle.
         </p>
       </div>
 

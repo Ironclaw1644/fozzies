@@ -9,6 +9,7 @@ const NAV = [
   { label: "Home", href: "/" },
   { label: "Menu", href: "/menu" },
   { label: "About", href: "/about" },
+  { label: "The Book", href: "/people-matter" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
   { label: "Join The Team", href: "/join-the-team" },
@@ -82,7 +83,7 @@ export default function Header() {
 
             {/* Right: inline nav on desktop, hamburger below lg */}
             <div className="flex items-center">
-              <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
+              <nav aria-label="Primary" className="hidden items-center gap-6 xl:flex">
                 {NAV.filter((item) => item.href !== "/").map((item) => {
                   const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                   return (
@@ -104,7 +105,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="inline-flex items-center justify-center px-3 py-3 text-charcoal/90 transition hover:text-charcoal lg:hidden"
+                className="inline-flex items-center justify-center px-3 py-3 text-charcoal/90 transition hover:text-charcoal xl:hidden"
                 aria-label="Open menu"
               >
                 <div className="flex flex-col gap-2">

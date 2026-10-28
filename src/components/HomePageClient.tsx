@@ -365,6 +365,50 @@ export default function HomePage({ initialBanner = null }: { initialBanner?: Ban
         </div>
       </section>
 
+      {/* Chef Jason's memoir */}
+      <section className="mx-auto mt-16 w-full max-w-4xl border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
+        <div className="grid items-center gap-6 sm:grid-cols-[140px,1fr] sm:gap-8">
+          <a href="/people-matter" className="relative mx-auto block aspect-[1000/1499] w-32 shadow-lg sm:w-full">
+            <Image
+              src="/book/people-matter-cover.jpg"
+              alt="Cover of People Matter by Jason Head"
+              fill
+              className="object-cover"
+              sizes="140px"
+            />
+          </a>
+          <div className="text-center sm:text-left">
+            <p className="text-[11px] tracking-[0.18em] text-softgray">NEW FROM CHEF JASON HEAD</p>
+            <h2 className="mt-2 font-serif text-2xl text-charcoal sm:text-3xl">People Matter</h2>
+            <p className="mt-1 font-serif text-lg text-charcoal/80">A Memoir of Love, Loss, Redemption, and Leadership</p>
+            <p className="mt-3 text-[15px] leading-7 text-softgray">
+              Before Fozzie&apos;s, Jason lost his career, his marriage and his freedom. His memoir is about the long road
+              back, and the people who stayed.
+            </p>
+            <div className="mt-5 flex flex-wrap justify-center gap-3 sm:justify-start">
+              <a
+                href="/people-matter"
+                className="inline-flex items-center justify-center rounded-full border border-gold px-5 py-2.5 text-sm font-medium text-charcoal no-underline transition hover:bg-gold/15"
+              >
+                About the Book
+              </a>
+              <a
+                href="https://www.amazon.com/dp/B0HFDKYVB1"
+                target="_blank"
+                rel="noopener"
+                onClick={() => {
+                  trackEvent("book_buy_click", { format: "paperback", placement: "home" });
+                  track("book_buy_click", { page_path: "/", meta: { format: "paperback", placement: "home" } });
+                }}
+                className="inline-flex items-center justify-center rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-charcoal no-underline transition hover:opacity-90"
+              >
+                Buy on Amazon
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Signature Dishes */}
       <section className="mt-16">
         <div className="text-center">

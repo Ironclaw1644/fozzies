@@ -6,7 +6,8 @@ import { SITE_URL } from "@/lib/siteUrl";
 const ROUTES: Array<[route: string, lastModified: string]> = [
   ["/", "2026-10-21"],
   ["/menu", "2026-10-21"],
-  ["/about", "2026-10-21"],
+  ["/about", "2026-10-28"],
+  ["/people-matter", "2026-10-28"],
   ["/faq", "2026-09-26"],
   ["/contact", "2026-10-21"],
   ["/join-the-team", "2026-10-21"],

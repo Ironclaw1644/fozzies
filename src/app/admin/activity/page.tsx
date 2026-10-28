@@ -27,14 +27,15 @@ type AnalyticsEventRow = {
 
 const majorConversionEvents = new Set(["reservation_submit"]);
 const secondaryConversionEvents = new Set(["newsletter_signup", "job_application_submit"]);
-const engagementEvents = new Set(["menu_pdf_open"]);
+const engagementEvents = new Set(["menu_pdf_open", "book_buy_click"]);
 const allConversionEvents = new Set([...majorConversionEvents, ...secondaryConversionEvents]);
-const clickEvents = new Set(["menu_pdf_open", "click"]);
+const clickEvents = new Set(["menu_pdf_open", "book_buy_click", "click"]);
 
 const friendlyPathMap: Record<string, string> = {
   "/": "Home",
   "/menu": "Menu",
   "/about": "About",
+  "/people-matter": "The Book (People Matter)",
   "/contact": "Contact",
   "/faq": "FAQ",
   "/join-the-team": "Join the Team",
@@ -44,6 +45,7 @@ const friendlyPathMap: Record<string, string> = {
 const friendlyEventMap: Record<string, string> = {
   page_view: "Visited page",
   menu_pdf_open: "Opened menu PDF",
+  book_buy_click: "Clicked Buy on Amazon (book)",
   newsletter_signup: "Joined email list",
   reservation_submit: "Reservation request",
   job_application_submit: "Job application",
