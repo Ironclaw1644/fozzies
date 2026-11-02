@@ -17,6 +17,8 @@ const COOKEVILLE_LINKS = [
   { label: "Fine Dining in Cookeville", href: "/best-fine-dining-cookeville" },
   { label: "Romantic Dinner in Cookeville", href: "/romantic-dinner-cookeville" },
   { label: "Private Dining in Cookeville", href: "/private-dining-cookeville" },
+  { label: "Steak and Seafood in Cookeville", href: "/steak-seafood-cookeville" },
+  { label: "Gluten-Free Dining in Cookeville", href: "/gluten-free-cookeville" },
 ];
 
 const FOOTER_LINK_CLASS =

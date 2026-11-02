@@ -81,7 +81,15 @@ export default function BestFineDiningCookevillePage() {
           or the season&apos;s bread pudding.
         </p>
         <p className="mt-4 text-softgray leading-7">
-          Many dishes are marked gluten-free. See everything on the current{" "}
+          For a closer look, see the{" "}
+          <a href="/steak-seafood-cookeville" className={L}>
+            steak and seafood dishes
+          </a>{" "}
+          or the{" "}
+          <a href="/gluten-free-cookeville" className={L}>
+            dishes with gluten-free options
+          </a>
+          , or everything on the current{" "}
           <a href="/menu" className={L}>
             dinner menu
           </a>

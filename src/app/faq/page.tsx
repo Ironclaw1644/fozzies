@@ -86,6 +86,17 @@ export default async function FAQPage() {
           ))}
         </div>
         <p className="mt-8 text-center text-sm text-softgray">
+          Ordering gluten-free? See the{" "}
+          <a href="/gluten-free-cookeville" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            dishes with gluten-free options
+          </a>
+          . Looking for steak or seafood? See{" "}
+          <a href="/steak-seafood-cookeville" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
+            steak and seafood in Cookeville
+          </a>
+          .
+        </p>
+        <p className="mt-3 text-center text-sm text-softgray">
           Still have a question?{" "}
           <a href="/contact" className="underline decoration-gold/70 underline-offset-4 hover:text-charcoal">
             Contact us

@@ -185,7 +185,14 @@ export default function MenuRender({ menuMeta, menuSections, footerBlock, pdfUrl
 
           <div className="mt-6 space-y-1 text-sm text-softgray">
             <div>
-              <span className="text-gold">*</span> {resolvedMeta.glutenFreeNote}
+              <span className="text-gold">*</span>{" "}
+              {previewMode ? (
+                resolvedMeta.glutenFreeNote
+              ) : (
+                <Link href="/gluten-free-cookeville" className={GOLD_UNDERLINE_LINK_CLASS}>
+                  {resolvedMeta.glutenFreeNote}
+                </Link>
+              )}
             </div>
             <div>{resolvedMeta.splitFee}</div>
           </div>

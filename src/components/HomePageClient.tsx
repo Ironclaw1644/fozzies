@@ -423,7 +423,7 @@ export default function HomePage({ initialBanner = null }: { initialBanner?: Ban
         <div className="mt-10 md:hidden">
           <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3">
               {[
-              { src: "/gallery/shrimp_and_grits.jpg", alt: "Shrimp and grits — seared gulf shrimp over creamy gorda grits at Fozzie's Dining" },
+              { src: "/gallery/shrimp_and_grits.jpg", alt: "Shrimp and grits: Gulf shrimp over creamy gouda grits at Fozzie's Dining" },
               { src: "/gallery/salmon_dish.jpg", alt: "Blackened salmon with hot honey citrus glaze, sweet potato hash, and brussels sprouts" },
               { src: "/gallery/creme_brulee.jpg", alt: "Crème brûlée with caramelized sugar crust and fresh raspberries" },
             ].map((img) => (
@@ -447,7 +447,7 @@ export default function HomePage({ initialBanner = null }: { initialBanner?: Ban
 
         <div className="mt-10 hidden md:grid md:grid-cols-3 md:gap-6">
           {[
-            { src: "/gallery/shrimp_and_grits.jpg", alt: "Shrimp and grits — seared gulf shrimp over creamy gorda grits at Fozzie's Dining" },
+            { src: "/gallery/shrimp_and_grits.jpg", alt: "Shrimp and grits: Gulf shrimp over creamy gouda grits at Fozzie's Dining" },
             { src: "/gallery/salmon_dish.jpg", alt: "Blackened salmon with hot honey citrus glaze, sweet potato hash, and brussels sprouts" },
             { src: "/gallery/creme_brulee.jpg", alt: "Crème brûlée with caramelized sugar crust and fresh raspberries" },
           ].map((img) => (

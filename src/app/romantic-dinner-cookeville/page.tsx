@@ -5,14 +5,16 @@ import { ROMANTIC_DINNER_FAQ } from "@/lib/faqs";
 import { FACT_LINE } from "@/lib/restaurant";
 
 export const metadata: Metadata = {
-  title: "Romantic Dinner in Cookeville, TN",
+  // "Date Night" added 2026-11-02: "date night restaurants cookeville" is a tracked weekly
+  // keyword with no ranking page. Kept under 60 characters by dropping "TN" here only.
+  title: { absolute: "Romantic Dinner & Date Night in Cookeville | Fozzie's Dining" },
   description:
     "Plan a romantic dinner in Cookeville at Fozzie's Dining, where chef-driven menus, warm ambiance, and attentive service create unforgettable evenings.",
   alternates: {
     canonical: "/romantic-dinner-cookeville",
   },
   openGraph: {
-    title: "Romantic Dinner in Cookeville, TN | Fozzie's Dining",
+    title: "Romantic Dinner & Date Night in Cookeville | Fozzie's Dining",
     description:
       "Plan a romantic dinner in Cookeville at Fozzie's Dining, where chef-driven menus, warm ambiance, and attentive service create unforgettable evenings.",
     url: "/romantic-dinner-cookeville",
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Romantic Dinner in Cookeville, TN | Fozzie's Dining",
+    title: "Romantic Dinner & Date Night in Cookeville | Fozzie's Dining",
     description:
       "Plan a romantic dinner in Cookeville at Fozzie's Dining, where chef-driven menus, warm ambiance, and attentive service create unforgettable evenings.",
     images: ["/gallery/dining_detail.jpg"],
@@ -68,7 +70,7 @@ export default function RomanticDinnerCookevillePage() {
       </section>
 
       <section className="mx-auto mt-8 max-w-4xl border border-charcoal/10 bg-cream p-6 shadow-sm sm:p-8">
-        <h2 className="font-serif text-2xl text-charcoal sm:text-3xl">Designed for Date Night</h2>
+        <h2 className="font-serif text-2xl text-charcoal sm:text-3xl">A Date Night Restaurant in Cookeville</h2>
         <p className="mt-4 text-softgray leading-7">
           Soft light, elegant plating, and a polished pace create an intimate backdrop without feeling formal or
           rushed. It&apos;s upscale dining with genuine warmth.
@@ -104,7 +106,11 @@ export default function RomanticDinnerCookevillePage() {
           <a href="/menu" className={L}>
             dinner menu
           </a>
-          .
+          , or see the{" "}
+          <a href="/steak-seafood-cookeville" className={L}>
+            steak and seafood in Cookeville
+          </a>{" "}
+          if that&apos;s what you&apos;re craving.
         </p>
       </section>
 

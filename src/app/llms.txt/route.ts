@@ -1,6 +1,7 @@
 import { loadMenuSections } from "@/lib/liveMenu";
 import { ABOUT_FAQ, FINE_DINING_FAQ, PRIVATE_DINING_FAQ, ROMANTIC_DINNER_FAQ, type FaqEntry } from "@/lib/faqs";
 import { BOOK, BOOK_FACT_LINE, BOOK_FAQ, BOOK_URL } from "@/lib/book";
+import { glutenFreeDishes, listNames, seafoodDishes, steakDishes } from "@/lib/menuPicks";
 import { FACT_LINE, RESTAURANT } from "@/lib/restaurant";
 import { SITE_URL } from "@/lib/siteUrl";
 
@@ -40,6 +41,17 @@ export async function GET() {
         .map((s) => `- ${s.title}: ${s.items.map((i) => i.name.trim()).join("; ")}`)
         .join("\n")
     : `The menu changes with the seasons; see ${SITE_URL}/menu`;
+  // Same picks the steak/seafood and gluten-free pages show; omitted when the menu can't be read.
+  const steak = sections ? steakDishes(sections) : [];
+  const seafood = sections ? seafoodDishes(sections) : [];
+  const gf = sections ? glutenFreeDishes(sections) : [];
+  const picks = [
+    steak.length ? `- Steak: ${listNames(steak)} (not a steakhouse; steak is part of a broader seasonal menu)` : "",
+    seafood.length ? `- Seafood: ${listNames(seafood)}` : "",
+    gf.length ? `- Marked with gluten-free options on the menu: ${listNames(gf)}. No gluten-free certification is claimed.` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
   const liveDishes = sections ? new Set(sections.flatMap((s) => s.items.map((i) => norm(i.name)))) : null;
   const formats = BOOK.formats.map((f) => `${f.label} $${f.price} (${f.url})`).join("; ");
   const bookFaq = BOOK_FAQ.map((f) => `### ${f.question}\n${f.answer}`).join("\n\n");
@@ -65,7 +77,7 @@ export async function GET() {
 
 ## Current dinner menu
 ${menu}
-
+${picks ? `\n${picks}\n` : ""}
 ## Common questions
 ${faq}
 
@@ -87,6 +99,8 @@ ${bookFaq}
 - [Fine dining in Cookeville](${SITE_URL}/best-fine-dining-cookeville)
 - [Romantic dinner in Cookeville](${SITE_URL}/romantic-dinner-cookeville)
 - [Private and group dining in Cookeville](${SITE_URL}/private-dining-cookeville)
+- [Steak and seafood in Cookeville](${SITE_URL}/steak-seafood-cookeville)
+- [Gluten-free dining in Cookeville](${SITE_URL}/gluten-free-cookeville)
 - [FAQ: hours, dress code, reservations](${SITE_URL}/faq)
 - [Contact](${SITE_URL}/contact)
 `;

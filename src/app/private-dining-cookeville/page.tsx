@@ -8,13 +8,14 @@ const DESCRIPTION =
   "Host a group dinner or celebration at Fozzie's Dining in Cookeville, TN: a chef-driven seasonal menu, parties of 10+ by phone or email, and catering.";
 
 export const metadata: Metadata = {
-  title: "Private Dining in Cookeville, TN",
+  // "& Events" targets the tracked "private events cookeville restaurant" (#11–12 in October).
+  title: "Private Dining & Events in Cookeville, TN",
   description: DESCRIPTION,
   alternates: {
     canonical: "/private-dining-cookeville",
   },
   openGraph: {
-    title: "Private Dining in Cookeville, TN | Fozzie's Dining",
+    title: "Private Dining & Events in Cookeville, TN | Fozzie's Dining",
     description: DESCRIPTION,
     url: "/private-dining-cookeville",
     images: [
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Private Dining in Cookeville, TN | Fozzie's Dining",
+    title: "Private Dining & Events in Cookeville, TN | Fozzie's Dining",
     description: DESCRIPTION,
     images: ["/gallery/dining_room_1.png"],
   },
@@ -121,7 +122,15 @@ export default function PrivateDiningCookevillePage() {
           gives a mixed table plenty of range. The current menu includes starters such as lump crab cakes, Waka Waka
           Shrimp and stuffed portobello caps; mains from Nana&apos;s Shrimp &amp; Grits and Smoked Pork Belly with a
           sweet chili glaze to Smoky Mountain Surf &amp; Turf and Hallie Kay&apos;s Filet Mignon; and desserts like
-          bread pudding and crème brûlée. Gluten-free options are available, and many dishes are marked gluten-free.
+          bread pudding and crème brûlée. Gluten-free options are available: see the{" "}
+          <a href="/gluten-free-cookeville" className={L}>
+            dishes with gluten-free options
+          </a>
+          , or the{" "}
+          <a href="/steak-seafood-cookeville" className={L}>
+            steak and seafood on the menu
+          </a>
+          .
         </p>
       </section>
 

@@ -69,7 +69,7 @@ export const MENU_SECTIONS: MenuSection[] = [
   {
     title: "Mains",
     items: [
-      { name: "Shrimp & Grits", gf: true, desc: ["gulf shrimp", "seasonal vegetables", "gorda grits"] },
+      { name: "Shrimp & Grits", gf: true, desc: ["gulf shrimp", "seasonal vegetables", "gouda grits"] },
       {
         name: "Sara’s Southwest Pasta",
         desc: ["southwest cream sauce, fettuccine, grilled chicken", "can substitute shrimp or salmon"],
@@ -89,7 +89,7 @@ export const MENU_SECTIONS: MenuSection[] = [
       {
         name: "Fresh Gulf Catch",
         gf: true,
-        desc: ["chef’s selection", "grilled or blackened", "gorda grits", "seasonal vegetables"],
+        desc: ["chef’s selection", "grilled or blackened", "gouda grits", "seasonal vegetables"],
       },
       { name: "Seasonal Salad", desc: ["add chicken, shrimp, or salmon"] },
       { name: "Spanish Salad", desc: ["add chicken, shrimp, or salmon"] },
