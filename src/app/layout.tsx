@@ -1,17 +1,35 @@
-import "@fontsource/playfair-display/600.css";
-import "@fontsource/inter/300.css";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import TrackingPixel from "@/components/TrackingPixel";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import Script from "next/script";
 import { Suspense } from "react";
 import { SITE_URL } from "@/lib/siteUrl";
 import "./globals.css";
+
+// Same @fontsource files as before, through next/font: it adds size-adjusted fallbacks, so the
+// swap from fallback to web font doesn't shift the layout (CLS).
+const inter = localFont({
+  src: [
+    { path: "../../node_modules/@fontsource/inter/files/inter-latin-300-normal.woff2", weight: "300", style: "normal" },
+    { path: "../../node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../../node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../../node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
+  variable: "--font-inter",
+  display: "swap",
+  // Not preloaded: the size-adjusted fallback already holds the layout, and the 300 weight is home-only.
+  preload: false,
+  adjustFontFallback: "Arial",
+});
+const playfair = localFont({
+  src: [{ path: "../../node_modules/@fontsource/playfair-display/files/playfair-display-latin-600-normal.woff2", weight: "600", style: "normal" }],
+  variable: "--font-playfair",
+  display: "swap",
+  adjustFontFallback: "Times New Roman",
+});
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -58,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="antialiased min-h-screen flex flex-col">
         {gaMeasurementId ? (
           <>

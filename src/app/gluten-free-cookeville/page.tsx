@@ -13,7 +13,7 @@ export const revalidate = 300;
 const PATH = "/gluten-free-cookeville";
 const TITLE = "Gluten-Free Dining in Cookeville, TN";
 const DESCRIPTION =
-  "Gluten-free dining in Cookeville, TN at Fozzie's Dining: every starter, main and dessert the dinner menu marks with gluten-free options, and how to ask ahead.";
+  "Gluten-free dining in Cookeville, TN at Fozzie's Dining: every starter, main and dessert marked with gluten-free options, and how to ask ahead.";
 
 export const metadata: Metadata = {
   title: TITLE,

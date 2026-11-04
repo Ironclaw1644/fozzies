@@ -160,6 +160,13 @@ export default function BestFineDiningCookevillePage() {
           .
         </p>
         <p className="mt-4 text-softgray leading-7">
+          Hours, dress code and reservation details are all on the{" "}
+          <a href="/faq" className={L}>
+            Fozzie&apos;s Dining FAQ
+          </a>
+          .
+        </p>
+        <p className="mt-4 text-softgray leading-7">
           Ready now?{" "}
           <a href="/#reserve" className={L}>
             Reserve a table at Fozzie&apos;s

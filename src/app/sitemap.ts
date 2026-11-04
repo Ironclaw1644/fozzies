@@ -12,9 +12,9 @@ const ROUTES: Array<[route: string, lastModified: string]> = [
   ["/contact", "2026-10-21"],
   ["/join-the-team", "2026-10-21"],
   ["/privacy", "2026-10-21"],
-  ["/best-fine-dining-cookeville", "2026-11-02"],
-  ["/romantic-dinner-cookeville", "2026-11-02"],
-  ["/private-dining-cookeville", "2026-11-02"],
+  ["/best-fine-dining-cookeville", "2026-11-04"],
+  ["/romantic-dinner-cookeville", "2026-11-04"],
+  ["/private-dining-cookeville", "2026-11-04"],
   ["/steak-seafood-cookeville", "2026-11-02"],
   ["/gluten-free-cookeville", "2026-11-02"],
 ];

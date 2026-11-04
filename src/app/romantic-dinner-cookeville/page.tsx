@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   // keyword with no ranking page. Kept under 60 characters by dropping "TN" here only.
   title: { absolute: "Romantic Dinner & Date Night in Cookeville | Fozzie's Dining" },
   description:
-    "Plan a romantic dinner in Cookeville at Fozzie's Dining, where chef-driven menus, warm ambiance, and attentive service create unforgettable evenings.",
+    "Plan a romantic dinner, date night or anniversary in Cookeville at Fozzie's Dining: chef-driven menus, warm ambiance and attentive service.",
   alternates: {
     canonical: "/romantic-dinner-cookeville",
   },
   openGraph: {
     title: "Romantic Dinner & Date Night in Cookeville | Fozzie's Dining",
     description:
-      "Plan a romantic dinner in Cookeville at Fozzie's Dining, where chef-driven menus, warm ambiance, and attentive service create unforgettable evenings.",
+      "Plan a romantic dinner, date night or anniversary in Cookeville at Fozzie's Dining: chef-driven menus, warm ambiance and attentive service.",
     url: "/romantic-dinner-cookeville",
     images: [
       {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "Romantic Dinner & Date Night in Cookeville | Fozzie's Dining",
     description:
-      "Plan a romantic dinner in Cookeville at Fozzie's Dining, where chef-driven menus, warm ambiance, and attentive service create unforgettable evenings.",
+      "Plan a romantic dinner, date night or anniversary in Cookeville at Fozzie's Dining: chef-driven menus, warm ambiance and attentive service.",
     images: ["/gallery/dining_detail.jpg"],
   },
 };
@@ -148,6 +148,13 @@ export default function RomanticDinnerCookevillePage() {
           or call{" "}
           <a href="tel:+12058730686" className={L}>
             +1 (205) 873-0686
+          </a>
+          .
+        </p>
+        <p className="mt-4 text-softgray leading-7">
+          Hours, dress code and reservation details are all on the{" "}
+          <a href="/faq" className={L}>
+            Fozzie&apos;s Dining FAQ
           </a>
           .
         </p>

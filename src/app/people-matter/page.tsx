@@ -5,7 +5,7 @@ import { BreadcrumbJsonLd, LANDING_LINK_CLASS as L, LandingFaq } from "@/compone
 import { BOOK, BOOK_FACT_LINE, BOOK_FAQ, bookJsonLd } from "@/lib/book";
 
 const DESCRIPTION =
-  "People Matter is the memoir of Jason Head, chef-owner of Fozzie's Dining in Cookeville, TN: love, loss, prison and redemption. Paperback, hardcover, Kindle.";
+  "People Matter is the memoir of Jason Head, chef-owner of Fozzie's Dining in Cookeville, TN: love, loss, prison, redemption. Paperback, hardcover, Kindle.";
 
 export const metadata: Metadata = {
   title: "People Matter: A Memoir by Jason Head",
